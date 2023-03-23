@@ -1,0 +1,504 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SemanticFileInspector.Extensions</name>
+    </assembly>
+    <members>
+        <member name="T:IS4.SFI.BitTorrentHash">
+            <summary>
+            The hash algorithm that produces urn:btih: hashes. This algorithm collects
+            information about files and directories and uses it to create the "info"
+            section used normally in .torrent files. This section is hashed to produce
+            the final output of the algorithm.
+            The .torrent files are also available through its
+            <see cref="T:IS4.SFI.Services.IEntityOutputProvider`1"/> implementation.
+            </summary>
+            <remarks>
+            The BitTorrent hashing splits the input data into sections of <see cref="P:IS4.SFI.BitTorrentHash.BlockSize"/>
+            bytes and hashes each of them individually. In the case of directories,
+            the files inside are concatenated without any padding, which would break any sort
+            of caching of hashes necessary for the proper and efficient function of this algorithm.
+            Instead, .pad/{size} files are introduced (see https://www.bittorrent.org/beps/bep_0047.html)
+            when hashing directories. These files logically contain zeros and are added after each
+            file whose size is not a multiple of <see cref="P:IS4.SFI.BitTorrentHash.BlockSize"/>.
+            </remarks>
+        </member>
+        <member name="F:IS4.SFI.BitTorrentHash.HashAlgorithm">
+            <summary>
+            The hash algorithm used for hashing the info section.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.BitTorrentHash.bDictCache">
+            <summary>
+            Caches the original <see cref="T:BencodeNET.Objects.BDictionary"/> instance for a given hash.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.BitTorrentHash.BlockSize">
+            <summary>
+            The size of individually hashed blocks of input files.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.BitTorrentHash.#ctor">
+            <summary>
+            Creates a new instance of the algorithm.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.BitTorrentHash.GetHashSize(System.Int64)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.BitTorrentHash.ComputeHash(IS4.SFI.Services.IFileInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.BitTorrentHash.ComputeHash(IS4.SFI.Services.IDirectoryInfo,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.BitTorrentHash.DescribeEntity(System.Byte[],IS4.SFI.Services.OutputFileDelegate,IS4.SFI.Services.INodeMatchProperties)">
+            <summary>
+            If <paramref name="hash"/> was previously created as a result of
+            <see cref="M:IS4.SFI.BitTorrentHash.ComputeHash(IS4.SFI.Services.IFileInfo)"/> or <see cref="M:IS4.SFI.BitTorrentHash.ComputeHash(IS4.SFI.Services.IDirectoryInfo,System.Boolean)"/>,
+            invokes the provided <paramref name="output"/> to produce a .torrent file corresponding
+            to the hash.
+            </summary>
+            <param name="hash">The result of hashing a .torrent "info" section with <see cref="F:IS4.SFI.BitTorrentHash.HashAlgorithm"/>.</param>
+            <param name="output">The instance of <see cref="T:IS4.SFI.Services.OutputFileDelegate"/> to receive the file.</param>
+            <param name="properties">Additional properties passed to <paramref name="output"/>.</param>
+            <returns>Whether a description of the hash was properly retrieved.</returns>
+        </member>
+        <member name="T:IS4.SFI.BitTorrentHashCache">
+            <summary>
+            The cache of file hashes shared by <see cref="T:IS4.SFI.BitTorrentHash"/> and
+            <see cref="T:IS4.SFI.PaddedBlockHash"/>.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.BitTorrentHashCache.GetCachedInfo(System.Int32,IS4.SFI.Services.IFileNodeInfo)">
+            <summary>
+            Retrieves the cached info for a given file.
+            </summary>
+            <param name="blockSize">The block size of individually hashed sections.</param>
+            <param name="file">The file to hash.</param>
+            <returns>The information about the file.</returns>
+        </member>
+        <member name="M:IS4.SFI.BitTorrentHashCache.GetCachedInfo(System.Int32,System.IO.Stream,IS4.SFI.Services.IPersistentKey)">
+            <summary>
+            Retrieves the cached info for a given file.
+            </summary>
+            <param name="blockSize">The block size of individually hashed sections.</param>
+            <param name="stream">To stream to hash.</param>
+            <param name="key">The key in the cache.</param>
+            <returns>The information about the file.</returns>
+        </member>
+        <member name="T:IS4.SFI.BitTorrentHashCache.FileInfo">
+            <summary>
+            The information about the hash of a file.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.BitTorrentHashCache.FileInfo.BlockHashes">
+            <summary>
+            The list of hashes for the consecutive whole blocks in the file.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.BitTorrentHashCache.FileInfo.LastHash">
+            <summary>
+            The hash of the last block with its original size.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.BitTorrentHashCache.FileInfo.LastHashPadded">
+            <summary>
+            The hash of the last block padded with zeros.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.BitTorrentHashCache.FileInfo.Padding">
+            <summary>
+            The length of the padding in bytes.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.BitTorrentHashCache.FileInfo.Length">
+            <summary>
+            The length of the file.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.BitTorrentHashCache.FileInfo.#ctor(System.ValueTuple{System.Collections.Generic.List{System.Byte[]},System.Int32,System.Int64})">
+            <summary>
+            Creates a new instance of the record.
+            </summary>
+            <param name="hashData">The data of the hashed blocks.</param>
+        </member>
+        <member name="M:IS4.SFI.BitTorrentHashCache.FileInfo.Create(System.Int32,IS4.SFI.Services.IPersistentKey)">
+            <summary>
+            Creates and retrieves hashed file information pertatining to <paramref name="key"/>.
+            </summary>
+            <param name="blockSize">The hashed block size to use.</param>
+            <param name="key">The object to retrieve the information for. Must be an instance of <see cref="T:IS4.SFI.Services.IStreamFactory"/>.</param>
+            <returns>An instance of <see cref="T:IS4.SFI.BitTorrentHashCache.FileInfo"/> storing the hash information.</returns>
+        </member>
+        <member name="T:IS4.SFI.Blake3Hash">
+            <summary>
+            The BLAKE3 hash algorithm, using <see cref="T:Blake3.Hasher"/>.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Blake3Hash.Instance">
+            <summary>
+            The singleton instance of the algorithm.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Blake3Hash.NumericIdentifier">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Blake3Hash.Initialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Blake3Hash.Append(Blake3.Hasher@,System.ArraySegment{System.Byte})">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Blake3Hash.Output(Blake3.Hasher@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Blake3Hash.Finalize(Blake3.Hasher@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Blake3Hash.ComputeHash(System.Byte[],IS4.SFI.Services.IPersistentKey)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Blake3Hash.ComputeHash(System.Byte[],System.Int32,System.Int32,IS4.SFI.Services.IPersistentKey)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Crc32Hash">
+            <summary>
+            The CRC32 checksum algorithm, using <see cref="T:Force.Crc32.Crc32Algorithm"/>.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Crc32Hash.Instance">
+            <summary>
+            The singleton instance of the algorithm.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Crc32Hash.Initialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Crc32Hash.Append(System.UInt32@,System.ArraySegment{System.Byte})">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Crc32Hash.Output(System.UInt32@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Crc32Hash.Finalize(System.UInt32@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Crc32Hash.ComputeHash(System.Byte[],IS4.SFI.Services.IPersistentKey)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Crc32Hash.ComputeHash(System.Byte[],System.Int32,System.Int32,IS4.SFI.Services.IPersistentKey)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Analyzers.RdfXmlAnalyzer">
+            <summary>
+            Analyzer of RDF/XML documents, as instances of <see cref="T:IS4.SFI.Analyzers.RdfXmlAnalyzer.Document"/>.
+            The analyzer uses the data in the document to describe its node,
+            assuming URIs relative to the XML base are used.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Analyzers.RdfXmlAnalyzer.Analyze(IS4.SFI.Analyzers.RdfXmlAnalyzer.Document,IS4.SFI.Services.AnalysisContext,IS4.SFI.Services.IEntityAnalyzers)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Analyzers.RdfXmlAnalyzer.Document">
+            <summary>
+            A representation of an RDF/XML document.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Analyzers.RdfXmlAnalyzer.Document.RdfDocument">
+            <summary>
+            The XML document storing the RDF/XML data. The instance
+            of <see cref="T:IS4.SFI.Tools.Xml.BaseXmlDocument"/> allows modifying the base
+            of the document at runtime based on the URI of the current node.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Analyzers.RdfXmlAnalyzer.Document.#ctor(IS4.SFI.Tools.Xml.BaseXmlDocument)">
+            <summary>
+            Creates a new instance of the document.
+            </summary>
+            <param name="rdfDocument">The value of <see cref="P:IS4.SFI.Analyzers.RdfXmlAnalyzer.Document.RdfDocument"/>.</param>
+        </member>
+        <member name="M:IS4.SFI.Analyzers.RdfXmlAnalyzer.Document.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Formats.RdfXmlFormat">
+            <summary>
+            Represents the RDF/XML format, producing instances of <see cref="T:IS4.SFI.Analyzers.RdfXmlAnalyzer.Document"/>.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Formats.RdfXmlFormat.#ctor">
+            <inheritdoc cref="M:IS4.SFI.Formats.FileFormat`1.#ctor(System.String,System.String)"/>
+        </member>
+        <member name="M:IS4.SFI.Formats.RdfXmlFormat.Match``2(System.Xml.XmlReader,System.Xml.Linq.XDocumentType,IS4.SFI.Formats.MatchContext,IS4.SFI.ResultFactory{IS4.SFI.Analyzers.RdfXmlAnalyzer.Document,``0,``1},``1)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Extensions.LinkedNodeHandler">
+            <summary>
+            Provides an implementation of <see cref="T:IS4.SFI.Services.ILinkedNodeFactory"/>
+            based on instances of <see cref="T:VDS.RDF.IUriNode"/>.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Extensions.LinkedNodeHandler.Root">
+            <inheritdoc/>
+        </member>
+        <member name="F:IS4.SFI.Extensions.LinkedNodeHandler.BlankUriScheme">
+            <summary>
+            The fake URI scheme used for URIs denoting blank nodes.
+            URIs using this prefix are specially recognized,
+            creating blank nodes instead of URI nodes in RDF.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Extensions.LinkedNodeHandler.PrefixMap">
+            <summary>
+            A map storing prefixes of used namespaces.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Extensions.LinkedNodeHandler.MaxUriLength">
+            <summary>
+            The maximum allowed length of generated URIs; longer
+            URIs will be shortened using <see cref="M:IS4.SFI.UriTools.UriToUuidUri(System.Uri)"/>.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Extensions.LinkedNodeHandler.UriPartShortened">
+            <summary>
+            The maximum length of individual URI parts when a string representation of
+            a shortened URI is stored, for <see cref="M:IS4.SFI.UriTools.ShortenUri(System.Uri,System.Int32,System.String)"/>.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Extensions.LinkedNodeHandler.#ctor(IS4.SFI.Services.IIndividualUriFormatter{System.String},VDS.RDF.IRdfHandler,System.Collections.Generic.IReadOnlyDictionary{System.Uri,VDS.RDF.IRdfHandler},IS4.SFI.NodeQueryTester)">
+            <summary>
+            Creates a new instance of the handler.
+            </summary>
+            <param name="root">The root of the node hierarchy.</param>
+            <param name="defaultHandler">The default RDF handler to write triples to.</param>
+            <param name="graphHandlers">The additional handlers for each custom graph.</param>
+            <param name="queryTester">The instance of <see cref="T:IS4.SFI.NodeQueryTester"/> that is used to match nodes.</param>
+        </member>
+        <member name="M:IS4.SFI.Extensions.LinkedNodeHandler.GetNamespace(System.Uri)">
+            <summary>
+            Retrieves the prefix of an added namespace, or creates a new one.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Extensions.LinkedNodeHandler.AddNamespace(VDS.RDF.IRdfHandler,System.String,System.Uri)">
+            <summary>
+            Handles a new namespace.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Extensions.LinkedNodeHandler.realUriCache">
+            <summary>
+            A map of "real" URIs of <see cref="T:VDS.RDF.INode"/> instances, in cases
+            the URI was shortened or denoted a blank node.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Extensions.LinkedNodeHandler.Create``1(IS4.SFI.Services.IIndividualUriFormatter{``0},``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Extensions.LinkedNodeHandler.CreateNode(System.Uri,VDS.RDF.IRdfHandler)">
+            <summary>
+            Creates a new RDF node for the given URI using the specified handler
+            as the node factory.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Extensions.LinkedNodeHandler.CreateBlankNode(System.Uri,VDS.RDF.IRdfHandler)">
+            <summary>
+            Creates a blank node identified by a URI.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Extensions.LinkedNodeHandler.GetGraphCache(VDS.RDF.IRdfHandler)">
+            <summary>
+            Returns the <see cref="T:IS4.SFI.Vocabulary.VocabularyCache`1"/> for a given RDF handler.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Extensions.LinkedNodeHandler.GetGraphHandler(IS4.SFI.Vocabulary.GraphUri)">
+            <summary>
+            Returns the RDF handler for a given named graph, or the default handler
+            if the named graph is not defined.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Extensions.LinkedNodeHandler.GetGraphHandler(System.Uri)">
+            <summary>
+            Returns the RDF handler for a given named graph, or the default handler
+            if the named graph is not defined.
+            </summary>
+        </member>
+        <member name="T:IS4.SFI.Extensions.LinkedNodeHandler.Cache">
+            <summary>
+            Implements <see cref="T:IS4.SFI.Services.IVocabularyCache`2"/> for all RDF terms,
+            based on a shared instance of <see cref="T:IS4.SFI.Vocabulary.VocabularyCache`1"/>.
+            </summary>
+        </member>
+        <member name="T:IS4.SFI.Extensions.LinkedNodeHandler.UriNode">
+            <summary>
+            An implementation of <see cref="T:IS4.SFI.Services.LinkedNode`3"/>
+            for <see cref="T:VDS.RDF.INode"/>.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Extensions.LinkedNodeHandler.UriNode.#ctor(VDS.RDF.INode,VDS.RDF.IRdfHandler,IS4.SFI.Extensions.LinkedNodeHandler.Cache)">
+            <inheritdoc cref="M:IS4.SFI.Services.LinkedNode`3.#ctor(`0,`1,`2)"/>
+            <param name="subject"><inheritdoc path="/param[@name='subject']" cref="M:IS4.SFI.Services.LinkedNode`3.#ctor(`0,`1,`2)"/></param>
+            <param name="graph"><inheritdoc path="/param[@name='graph']" cref="M:IS4.SFI.Services.LinkedNode`3.#ctor(`0,`1,`2)"/></param>
+            <param name="cache"><inheritdoc path="/param[@name='cache']" cref="M:IS4.SFI.Services.LinkedNode`3.#ctor(`0,`1,`2)"/></param>
+        </member>
+        <member name="M:IS4.SFI.Extensions.LinkedNodeHandler.UriNode.HandleExternalTriple(VDS.RDF.INode,VDS.RDF.INode,VDS.RDF.INode)">
+            <summary>
+            Called when a triple from an external graph describing the current node
+            is encountered.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Extensions.LinkedNodeHandler.UriNode.PrepareXmlDocument(System.Xml.XmlReader)">
+            <summary>
+            Ensures that the argument stores an rdf:RDF element, and returns a document
+            with the base set to the current URI.
+            </summary>
+        </member>
+        <member name="T:IS4.SFI.Extensions.LinkedNodeHandler.UriNode.DataGraph">
+            <summary>
+            The graph holding the external description, used by <see cref="M:IS4.SFI.Extensions.LinkedNodeHandler.UriNode.Describe(System.Xml.XmlDocument,System.Collections.Generic.IReadOnlyCollection{System.Uri})"/>.
+            </summary>
+        </member>
+        <member name="T:IS4.SFI.Extensions.TurtleHandler`1">
+            <summary>
+            A custom RDF handler that writes Turtle output to a file.
+            </summary>
+            <typeparam name="TFormatter">
+            The Turtle formatter used for nodes, usually <see cref="T:VDS.RDF.Writing.Formatting.TurtleFormatter"/>.
+            </typeparam>
+        </member>
+        <member name="M:IS4.SFI.Extensions.TurtleHandler`1.#ctor(System.IO.TextWriter,`0,VDS.RDF.INamespaceMapper,System.Collections.Generic.IEqualityComparer{System.Uri})">
+            <summary>
+            Creates a new instance of the Turtle handler.
+            </summary>
+            <param name="output">The output writer to write Turtle to.</param>
+            <param name="formatter">The formatter of Turtle nodes.</param>
+            <param name="namespaceMapper">The namespace mapper to register namespaces to.</param>
+            <param name="uriComparer">The comparer of <see cref="T:System.Uri"/> instances.</param>
+        </member>
+        <member name="P:IS4.SFI.Extensions.TurtleHandler`1.AcceptsAll">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Extensions.TurtleHandler`1.HandleNamespaceInternal(System.String,System.Uri)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Extensions.TurtleHandler`1.HandleBaseUriInternal(System.Uri)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Extensions.TurtleHandler`1.EndRdfInternal(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Extensions.TurtleHandler`1.HandleTripleInternal(VDS.RDF.Triple)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Extensions.TurtleHandler`1.FakeUri">
+            <summary>
+            A fake <see cref="T:System.Uri"/> that has a custom <see cref="M:IS4.SFI.Extensions.TurtleHandler`1.FakeUri.ToString"/> value,
+            to give to the <typeparamref name="TFormatter"/>.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Extensions.TurtleHandler`1.FakeUri.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.NodeQueryTester">
+            <summary>
+            Tests instances of <see cref="T:VDS.RDF.INode"/> whether they match
+            any of the input SPARQL queries.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.NodeQueryTester.#ctor(VDS.RDF.IRdfHandler,VDS.RDF.Graph,System.Collections.Generic.IReadOnlyCollection{VDS.RDF.Query.SparqlQuery})">
+            <summary>
+            Creates a new instance of the tester.
+            </summary>
+            <param name="rdfHandler">The RDF handler to use to store the result of CONSTRUCT queries.</param>
+            <param name="queryGraph">The graph to process with the queries.</param>
+            <param name="queries">The collection of SPARQL queries to process.</param>
+        </member>
+        <member name="M:IS4.SFI.NodeQueryTester.Match(VDS.RDF.INode,IS4.SFI.Services.INodeMatchProperties@)">
+            <summary>
+            Matches an instance of <see cref="T:VDS.RDF.INode"/> against the stored SPARQL queries.
+            In order for the match to be successful, the variables bound by the query
+            must contain a "?node" variable equal to <paramref name="subject"/>.
+            </summary>
+            <param name="subject">The matching node to be identified by the queries.</param>
+            <param name="properties">Additional variables from a successful match, as instances of <see cref="T:System.Uri"/> or <see cref="T:System.String"/>.</param>
+            <returns>True if any of the queries successfully matched the node.</returns>
+        </member>
+        <member name="P:IS4.SFI.NodeQueryTester.Properties.Extension">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.NodeQueryTester.Properties.MediaType">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.NodeQueryTester.Properties.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.NodeQueryTester.Properties.PathFormat">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.PaddedBlockHash">
+            <summary>
+            Represents a chunked hash that stores a variable number of SHA-1 hashes
+            to use to produce BitTorrent files. The hash has a specific structure,
+            starting with 4 bytes storing the (int32) size of the padding
+            (<see cref="P:IS4.SFI.BitTorrentHashCache.FileInfo.Padding"/>), followed by each
+            block hash (<see cref="P:IS4.SFI.BitTorrentHashCache.FileInfo.BlockHashes"/>) and
+            the hash of the last block, padded and unpadded
+            (<see cref="P:IS4.SFI.BitTorrentHashCache.FileInfo.LastHashPadded"/> and
+            <see cref="P:IS4.SFI.BitTorrentHashCache.FileInfo.LastHash"/>)
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.PaddedBlockHash.BlockSize">
+            <summary>
+            The size of the individually hashed blocks.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.PaddedBlockHash.#ctor(IS4.SFI.Vocabulary.IndividualUri,System.String,System.Int32)">
+            <param name="blockSize">The value of <see cref="P:IS4.SFI.PaddedBlockHash.BlockSize"/>.</param>
+            <inheritdoc cref="M:IS4.SFI.Services.DataHashAlgorithm.#ctor(IS4.SFI.Vocabulary.IndividualUri,System.Int32,System.String,IS4.SFI.Services.FormattingMethod)"/>
+            <param name="identifier"><inheritdoc path="/param[@name='identifier']" cref="M:IS4.SFI.Services.DataHashAlgorithm.#ctor(IS4.SFI.Vocabulary.IndividualUri,System.Int32,System.String,IS4.SFI.Services.FormattingMethod)"/></param>
+            <param name="prefix"><inheritdoc path="/param[@name='prefix']" cref="M:IS4.SFI.Services.DataHashAlgorithm.#ctor(IS4.SFI.Vocabulary.IndividualUri,System.Int32,System.String,IS4.SFI.Services.FormattingMethod)"/></param>
+        </member>
+        <member name="M:IS4.SFI.PaddedBlockHash.ComputeHash(System.IO.Stream,IS4.SFI.Services.IPersistentKey)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.PaddedBlockHash.ComputeHash(System.Byte[],IS4.SFI.Services.IPersistentKey)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.PaddedBlockHash.ComputeHash(System.Byte[],System.Int32,System.Int32,IS4.SFI.Services.IPersistentKey)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.PaddedBlockHash.GetHashSize(System.Int64)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Tools.UdeEncodingDetector">
+            <summary>
+            An implementation of <see cref="T:IS4.SFI.Services.IEncodingDetector"/>
+            using <see cref="T:Ude.CharsetDetector"/>.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Tools.UdeEncodingDetector.#ctor">
+            <summary>
+            Creates a new instance of the detector.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Tools.UdeEncodingDetector.#ctor(Ude.CharsetDetector)">
+            <summary>
+            Creates a new instance of the detector.
+            </summary>
+            <param name="detector">The inner detector to use.</param>
+        </member>
+        <member name="P:IS4.SFI.Tools.UdeEncodingDetector.Charset">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.Tools.UdeEncodingDetector.Confidence">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Tools.UdeEncodingDetector.Write(System.ArraySegment{System.Byte})">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Tools.UdeEncodingDetector.Write(System.ReadOnlySpan{System.Byte})">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Tools.UdeEncodingDetector.End">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

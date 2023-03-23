@@ -1,0 +1,536 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SemanticFileInspector.Media</name>
+    </assembly>
+    <members>
+        <member name="T:IS4.SFI.Analyzers.ArchiveAnalyzer">
+            <summary>
+            Analyzes archives as instances of <see cref="T:IS4.SFI.Media.IArchiveFile"/>.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Analyzers.ArchiveAnalyzer.#ctor">
+            <inheritdoc cref="M:IS4.SFI.Services.EntityAnalyzer.#ctor"/>
+        </member>
+        <member name="M:IS4.SFI.Analyzers.ArchiveAnalyzer.Analyze(IS4.SFI.Media.IArchiveFile,IS4.SFI.Services.AnalysisContext,IS4.SFI.Services.IEntityAnalyzers)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Analyzers.ArchiveReaderAnalyzer">
+            <summary>
+            Analyzes archives as instances of <see cref="T:IS4.SFI.Media.IArchiveReader"/>.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Analyzers.ArchiveReaderAnalyzer.#ctor">
+            <inheritdoc cref="M:IS4.SFI.Services.EntityAnalyzer.#ctor"/>
+        </member>
+        <member name="M:IS4.SFI.Analyzers.ArchiveReaderAnalyzer.Analyze(IS4.SFI.Media.IArchiveReader,IS4.SFI.Services.AnalysisContext,IS4.SFI.Services.IEntityAnalyzers)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Analyzers.DelphiObjectAnalyzer">
+            <summary>
+            An analyzer of Delphi objects, as instances of <see cref="T:IS4.SFI.Media.Data.DelphiObject"/>.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Analyzers.DelphiObjectAnalyzer.Analyze(IS4.SFI.Media.Data.DelphiObject,IS4.SFI.Services.AnalysisContext,IS4.SFI.Services.IEntityAnalyzers)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Analyzers.WinModuleAnalyzer">
+            <summary>
+            Analyzes Windows modules, as instances of <see cref="T:IS4.SFI.Media.IModule"/>.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Analyzers.WinModuleAnalyzer.#ctor">
+            <summary>
+            Creates a new instance of the module.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Analyzers.WinModuleAnalyzer.Analyze(IS4.SFI.Media.IModule,IS4.SFI.Services.AnalysisContext,IS4.SFI.Services.IEntityAnalyzers)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Analyzers.WinVersionAnalyzerManaged">
+            <summary>
+            Analyzes a Windows version resources, as an instance of <see cref="T:IS4.SFI.Media.Modules.WinVersionInfo"/>
+            storing the VS_VERSIONINFO structure. The parsing of the structure is done
+            in purely managed code.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Analyzers.WinVersionAnalyzerManaged.Analyze(IS4.SFI.Media.Modules.WinVersionInfo,IS4.SFI.Services.AnalysisContext,IS4.SFI.Services.IEntityAnalyzers)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Analyzers.PackageDescriptionAnalyzer">
+            <summary>
+            Analyzes instances of <see cref="T:IS4.SFI.Media.Packages.PackageDescription"/>, describing a directory or archive
+            storing its description as metadata.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Analyzers.PackageDescriptionAnalyzer.Analyze(IS4.SFI.Media.Packages.PackageDescription,IS4.SFI.Services.AnalysisContext,IS4.SFI.Services.IEntityAnalyzers)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Formats.DelphiFormFormat">
+            <summary>
+            Represents the DFM format used by Delphi, producing instances of <see cref="T:IS4.SFI.Media.Data.DelphiObject"/>.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Formats.DelphiFormFormat.#ctor">
+            <inheritdoc cref="M:IS4.SFI.Formats.FileFormat`1.#ctor(System.String,System.String)"/>
+        </member>
+        <member name="M:IS4.SFI.Formats.DelphiFormFormat.Match``2(System.IO.Stream,IS4.SFI.Formats.MatchContext,IS4.SFI.ResultFactory{IS4.SFI.Media.Data.DelphiObject,``0,``1},``1)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Formats.GenericModuleFormat">
+            <summary>
+            Represents a general format for extended MZ modules.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Formats.GenericModuleFormat.#ctor">
+            <inheritdoc cref="M:IS4.SFI.Formats.FileFormat`1.#ctor(System.String,System.String)"/>
+        </member>
+        <member name="M:IS4.SFI.Formats.GenericModuleFormat.Match``2(System.IO.Stream,IS4.SFI.Formats.MatchContext,IS4.SFI.ResultFactory{IS4.SFI.Formats.GenericModuleFormat.Module,``0,``1},``1)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Formats.GenericModuleFormat.GetMediaType(IS4.SFI.Formats.GenericModuleFormat.Module)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Formats.GenericModuleFormat.Module">
+            <summary>
+            An implementation of <see cref="T:IS4.SFI.Media.IModule"/> storing the signature
+            of the extended MZ module.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Formats.GenericModuleFormat.Module.Signature">
+            <summary>
+            The signature of the module.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Formats.GenericModuleFormat.Module.#ctor(System.IO.Stream)">
+            <summary>
+            Loads the module from a stream.
+            </summary>
+            <param name="stream">The input stream in the MZ format.</param>
+        </member>
+        <member name="P:IS4.SFI.Formats.GenericModuleFormat.Module.Type">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Formats.GenericModuleFormat.Module.ReadResources">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Formats.LinearModuleFormat">
+            <summary>
+            Represents the Linear Executable (LE) MZ module format.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Formats.LinearModuleFormat.#ctor">
+            <inheritdoc cref="M:IS4.SFI.Formats.FileFormat`1.#ctor(System.String,System.String)"/>
+        </member>
+        <member name="M:IS4.SFI.Formats.LinearModuleFormat.Match``2(System.IO.Stream,IS4.SFI.Formats.MatchContext,IS4.SFI.ResultFactory{IS4.SFI.Media.IModule,``0,``1},``1)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Formats.ModuleFormat`1">
+            <summary>
+            Represents a format of DOS/Windows MZ modules as instances of <typeparamref name="T"/>.
+            The implementation of <see cref="M:IS4.SFI.Formats.ModuleFormat`1.CheckHeader(System.Span{System.Byte},System.Boolean,IS4.SFI.Services.IEncodingDetector)"/>
+            checks the signature in the extended MZ header.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:IS4.SFI.Formats.ModuleFormat`1.#ctor(System.String,System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Formats.ModuleFormat`1.CheckHeader(System.Span{System.Byte},System.Boolean,IS4.SFI.Services.IEncodingDetector)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Formats.Win16ModuleFormat">
+            <summary>
+            Represents the Win16 New Executable (NE) module format.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Formats.Win16ModuleFormat.#ctor">
+            <inheritdoc cref="M:IS4.SFI.Formats.FileFormat`1.#ctor(System.String,System.String)"/>
+        </member>
+        <member name="M:IS4.SFI.Formats.Win16ModuleFormat.Match``2(System.IO.Stream,IS4.SFI.Formats.MatchContext,IS4.SFI.ResultFactory{IS4.SFI.Media.IModule,``0,``1},``1)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Formats.WinModuleFormat">
+            <summary>
+            Represents a format for Windows modules.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Formats.WinModuleFormat.#ctor(System.String,System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Formats.WinModuleFormat.GetExtension(IS4.SFI.Media.IModule)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Formats.ContainerFileFormat`2">
+            <summary>
+            An implementation of <see cref="T:IS4.SFI.Services.IContainerAnalyzerProvider"/> as a file format, producing entities
+            of type <typeparamref name="TEntity"/> representing hierarchies
+            starting with instances of <typeparamref name="TRoot"/>.
+            </summary>
+            <typeparam name="TRoot">The root type of the package.</typeparam>
+            <typeparam name="TEntity">The type of of the produced entities.</typeparam>
+        </member>
+        <member name="M:IS4.SFI.Formats.ContainerFileFormat`2.#ctor(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Formats.ContainerFileFormat`2.MatchRoot(`0,IS4.SFI.Services.AnalysisContext)">
+            <summary>
+            Called from the implementation of <see cref="M:IS4.SFI.Services.IContainerAnalyzerProvider.MatchRoot``1(``0,IS4.SFI.Services.AnalysisContext)"/>
+            when the type parameter is compatible with <typeparamref name="TRoot"/>.
+            </summary>
+            <inheritdoc cref="M:IS4.SFI.Services.IContainerAnalyzerProvider.MatchRoot``1(``0,IS4.SFI.Services.AnalysisContext)"/>
+        </member>
+        <member name="T:IS4.SFI.Formats.PackageDescriptionProvider">
+            <summary>
+            Provides description of based on the presence of plaintext-based description files.
+            The names of the used files are stored in <see cref="P:IS4.SFI.Formats.PackageDescriptionProvider.FileNames"/>.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Formats.PackageDescriptionProvider.FileNames">
+            <summary>
+            The collection of file names which are looked up in a directory.
+            By default it contains only "FILE_ID.DIZ".
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Formats.PackageDescriptionProvider.#ctor">
+            <summary>
+            Creates a new instance of the provider.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Formats.PackageDescriptionProvider.MatchRoot(System.Object,IS4.SFI.Services.AnalysisContext)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Formats.PackageDescriptionProvider.PackageInfo">
+            <summary>
+            Stores information about a package.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Formats.PackageDescriptionProvider.PackageInfo.#ctor(IS4.SFI.Formats.PackageDescriptionProvider)">
+            <summary>
+            Creates a new instance of the class.
+            </summary>
+            <param name="provider">The outer instance of <see cref="T:IS4.SFI.Formats.PackageDescriptionProvider"/>.</param>
+        </member>
+        <member name="M:IS4.SFI.Formats.PackageDescriptionProvider.PackageInfo.Analyze``2(``0,``1,IS4.SFI.Services.AnalysisContext,IS4.SFI.Services.AnalyzeInner,IS4.SFI.Services.IEntityAnalyzers)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Formats.PackageProvider`1">
+            <summary>
+            An implementation of <see cref="T:IS4.SFI.Services.IContainerAnalyzerProvider"/> for packages,
+            able to analyze file systems as instances of <see cref="T:IS4.SFI.Services.IDirectoryInfo"/>
+            or <see cref="T:IS4.SFI.Media.IArchiveInfo"/> by default.
+            </summary>
+            <typeparam name="TAnalyzer">The concrete analyzer type used by the implementation.</typeparam>
+        </member>
+        <member name="M:IS4.SFI.Formats.PackageProvider`1.MatchRoot(System.Object,IS4.SFI.Services.AnalysisContext)">
+            <summary>
+            When implemented, creates an instance of <typeparamref name="TAnalyzer"/> to analyze
+            the entities logically contained in a hierarchy starting at <paramref name="root"/>.
+            </summary>
+            <param name="root">The root of the hierarchy, used e.g. as <see cref="P:IS4.SFI.Services.IPersistentKey.ReferenceKey"/> if needed.</param>
+            <param name="context">The context of the analysis.</param>
+            <returns>
+            An instance of <typeparamref name="TAnalyzer"/> for <paramref name="root"/>.
+            This analyzer will be used again for the root itself and all nodes under it,
+            based on the specified <see cref="T:IS4.SFI.Services.ContainerBehaviour"/>.
+            </returns>
+        </member>
+        <member name="M:IS4.SFI.Formats.PackageProvider`1.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Formats.PackageProvider`1.Analyzer">
+            <summary>
+            Provides an implementation of <see cref="T:IS4.SFI.Services.IContainerAnalyzer"/>
+            which stores the root of the file hierarchy in <see cref="P:IS4.SFI.Formats.PackageProvider`1.Analyzer.Root"/>.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Formats.PackageProvider`1.Analyzer.Root">
+            <summary>
+            If the root of the hierarchy is a directory, stores its path.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Formats.PackageProvider`1.Analyzer.Analyze``2(``0,``1,IS4.SFI.Services.AnalysisContext,IS4.SFI.Services.AnalyzeInner,IS4.SFI.Services.IEntityAnalyzers)">
+            <inheritdoc cref="M:IS4.SFI.Services.IContainerAnalyzer.Analyze``2(``0,``1,IS4.SFI.Services.AnalysisContext,IS4.SFI.Services.AnalyzeInner,IS4.SFI.Services.IEntityAnalyzers)"/>
+        </member>
+        <member name="T:IS4.SFI.Media.Data.DelphiFormReader">
+            <summary>
+            Provides methods for reading Delphi objects.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Media.Data.DelphiFormReader.Read(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Reads an instance of <see cref="T:IS4.SFI.Media.Data.DelphiObject"/> from an input stream.
+            </summary>
+            <param name="input">The input stream.</param>
+            <param name="encoding">The encoding for strings in the file.</param>
+            <returns>An instance representing the contents of the stream.</returns>
+        </member>
+        <member name="T:IS4.SFI.Media.Data.DelphiObject">
+            <summary>
+            Represents a Delphi object.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Media.Data.DelphiObject.Name">
+            <summary>
+            The name of the object.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Media.Data.DelphiObject.BaseType">
+            <summary>
+            The type of the object.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Media.Data.DelphiObject.Properties">
+            <summary>
+            Stores the properties of the object.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Media.Data.DelphiObject.#ctor(System.IO.BinaryReader)">
+            <summary>
+            Creates a new instance of the object from <see cref="T:System.IO.BinaryReader"/>.
+            </summary>
+            <param name="reader">The object to read the data from.</param>
+            <exception cref="T:System.ArgumentException">
+            The input is not a valid serialization of a Delphi object.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+            The input uses field types unsupported by this implementation.
+            </exception>
+        </member>
+        <member name="T:IS4.SFI.Media.Modules.LeReader">
+            <summary>
+            Reads extended MZ modules in the LE (Linear Executable) sub-format.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Media.Modules.LeReader.Flags">
+            <summary>
+            The flags in the header of the module.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Media.Modules.LeReader.Type">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Media.Modules.LeReader.#ctor(System.IO.Stream)">
+            <summary>
+            Creates a new instance of the reader from an input stream.
+            </summary>
+            <param name="stream">The input stream.</param>
+        </member>
+        <member name="M:IS4.SFI.Media.Modules.LeReader.ReadResources">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Media.Modules.NeReader">
+            <summary>
+            Reads Windows New Executable (NE) modules.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Media.Modules.NeReader.Flags">
+            <summary>
+            The flags in the module's header.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Media.Modules.NeReader.Type">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Media.Modules.NeReader.#ctor(System.IO.Stream)">
+            <summary>
+            Creates a new instance of the reader.
+            </summary>
+            <param name="stream">The input stream.</param>
+        </member>
+        <member name="M:IS4.SFI.Media.Modules.NeReader.ReadResources">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Media.Modules.NeReader.Resource">
+            <summary>
+            Represents a resource in an NE module.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Media.Modules.NeReader.Resource.Type">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.Media.Modules.NeReader.Resource.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.Media.Modules.NeReader.Resource.Length">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Media.Modules.NeReader.Resource.#ctor(System.IO.Stream,System.Object,System.Object,System.Int64,System.Int32,System.Int32)">
+            <summary>
+            Creates a new instance of the resource.
+            </summary>
+            <param name="stream">The input stream.</param>
+            <param name="type">The value of <see cref="P:IS4.SFI.Media.Modules.NeReader.Resource.Type"/>.</param>
+            <param name="name">The value of <see cref="P:IS4.SFI.Media.Modules.NeReader.Resource.Name"/>.</param>
+            <param name="offset">The offset of the resource.</param>
+            <param name="length">The stored length of the resource.</param>
+            <param name="maxAlignment">
+            The maximum possible difference between the stored and real length of the resource,
+            as a result of the shift encoding of the length.
+            </param>
+        </member>
+        <member name="M:IS4.SFI.Media.Modules.NeReader.Resource.Read(System.Byte[],System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Media.Modules.Win32ResourceType">
+            <summary>
+            A Win32 module resource type.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.Cursor">
+            <summary>
+            RT_CURSOR
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.Bitmap">
+            <summary>
+            RT_BITMAP
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.Icon">
+            <summary>
+            RT_ICON
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.Menu">
+            <summary>
+            RT_MENU
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.Dialog">
+            <summary>
+            RT_DIALOG
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.String">
+            <summary>
+            RT_STRING
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.FontDirectory">
+            <summary>
+            RT_FONTDIR
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.Font">
+            <summary>
+            RT_FONT
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.Accelerator">
+            <summary>
+            RT_ACCELERATOR
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.UserData">
+            <summary>
+            RT_RCDATA
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.MessageTable">
+            <summary>
+            RT_MESSAGETABLE
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.GroupCursor">
+            <summary>
+            RT_GROUP_CURSOR
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.MenuEx">
+            <summary>
+            RT_MENUEX
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.GroupIcon">
+            <summary>
+            RT_GROUP_ICON
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.NameTable">
+            <summary>
+            RT_NAMETABLE
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.Version">
+            <summary>
+            RT_VERSION
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.DialogInclude">
+            <summary>
+            RT_DLGINCLUDE
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.DialogEx">
+            <summary>
+            RT_DIALOGEX
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.PlugAndPlay">
+            <summary>
+            RT_PLUGPLAY
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.VXD">
+            <summary>
+            RT_VXD
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.AnimatedCursor">
+            <summary>
+            RT_ANICURSOR
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.AnimatedIcon">
+            <summary>
+            RT_ANIICON
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.Html">
+            <summary>
+            RT_HTML
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Media.Modules.Win32ResourceType.Manifest">
+            <summary>
+            RT_MANIFEST
+            </summary>
+        </member>
+        <member name="T:IS4.SFI.Media.Modules.WinVersionInfo">
+            <summary>
+            Stores the VS_VERSIONINFO structure.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Media.Modules.WinVersionInfo.Data">
+            <summary>
+            The buffer storing the bytes of the structure.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Media.Modules.WinVersionInfo.#ctor(System.ArraySegment{System.Byte})">
+            <summary>
+            Creates a new instance of the class.
+            </summary>
+            <param name="data">The value of <see cref="P:IS4.SFI.Media.Modules.WinVersionInfo.Data"/>.</param>
+        </member>
+        <member name="T:IS4.SFI.Media.Packages.PackageDescription">
+            <summary>
+            Stores the description of a package, as identified by metadata within.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Media.Packages.PackageDescription.Value">
+            <summary>
+            The text of the description.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Media.Packages.PackageDescription.#ctor(System.String)">
+            <summary>
+            Creates a new instance of the description.
+            </summary>
+            <param name="value">The value of <see cref="P:IS4.SFI.Media.Packages.PackageDescription.Value"/>.</param>
+        </member>
+        <member name="M:IS4.SFI.Media.Packages.PackageDescription.ToString">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

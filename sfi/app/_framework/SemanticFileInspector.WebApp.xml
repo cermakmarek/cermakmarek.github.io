@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SemanticFileInspector.WebApp</name>
+    </assembly>
+    <members>
+        <member name="T:IS4.SFI.WebApp.BlobArrayStream">
+            <summary>
+            A writeable stream serializing the input data
+            to a JavaScript array and producing a blob.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BlobArrayStream.CanRead">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BlobArrayStream.CanSeek">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BlobArrayStream.CanWrite">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BlobArrayStream.Length">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BlobArrayStream.Position">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.BlobArrayStream.#ctor(Microsoft.JSInterop.IJSInProcessRuntime,System.String)">
+            <summary>
+            Creates a new instance of the stream.
+            </summary>
+            <param name="js">The JavaScript instance to use.</param>
+            <param name="mediaType">The media type of the resulting blob.</param>
+        </member>
+        <member name="M:IS4.SFI.WebApp.BlobArrayStream.Flush">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.BlobArrayStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.BlobArrayStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.BlobArrayStream.SetLength(System.Int64)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.BlobArrayStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.BlobArrayStream.CreateBlob">
+            <summary>
+            Finalizes the blob and creates its URI.
+            </summary>
+            <returns>The blob URI.</returns>
+        </member>
+        <member name="T:IS4.SFI.WebApp.BrowserFileInfo">
+            <summary>
+            Provides an implementation of <see cref="T:IS4.SFI.Services.IFileInfo"/> for
+            an instance of <see cref="T:Microsoft.AspNetCore.Components.Forms.IBrowserFile"/>.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.WebApp.BrowserFileInfo.#ctor(Microsoft.AspNetCore.Components.Forms.IBrowserFile)">
+            <summary>
+            Creates a new instance of the file info from a file in a browser.
+            </summary>
+            <param name="file">The underlying file to wrap.</param>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BrowserFileInfo.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BrowserFileInfo.SubName">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BrowserFileInfo.Path">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BrowserFileInfo.Revision">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BrowserFileInfo.CreationTime">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BrowserFileInfo.LastWriteTime">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BrowserFileInfo.LastAccessTime">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BrowserFileInfo.Kind">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BrowserFileInfo.Length">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BrowserFileInfo.Attributes">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BrowserFileInfo.Access">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BrowserFileInfo.ReferenceKey">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.BrowserFileInfo.DataKey">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.BrowserFileInfo.Open">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.BrowserFileInfo.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.WebApp.EventWriter">
+            <summary>
+            An implementation of <see cref="T:System.IO.TextWriter"/> which reports the written
+            strings via an event.
+            </summary>
+        </member>
+        <member name="E:IS4.SFI.WebApp.EventWriter.Written">
+            <summary>
+            This event is fired each time text is written to the writer.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.WebApp.EventWriter.Flush">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.EventWriter.Write(System.Char)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.EventWriter.Write(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.EventWriter.Write(System.Char[],System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.WebApp.Program">
+            <summary>
+            The main class of the web application.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.WebApp.Program.Main(System.String[])">
+            <summary>
+            The entry point of the web application.
+            </summary>
+            <param name="args">The arguments to the program.</param>
+        </member>
+        <member name="T:IS4.SFI.WebApp.WebEnvironment">
+            <summary>
+            The implementation of <see cref="T:IS4.SFI.Application.IApplicationEnvironment"/>
+            for the web environment.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.WebApp.WebEnvironment.WindowWidth">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.WebEnvironment.LogWriter">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.WebEnvironment.NewLine">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.WebApp.WebEnvironment.Disposed">
+            <summary>
+            <see langword="true"/> if <see cref="M:IS4.SFI.WebApp.WebEnvironment.Dispose"/> has been called.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.WebApp.WebEnvironment.ExecutableName">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.WebEnvironment.#ctor(Microsoft.JSInterop.IJSInProcessRuntime,System.IO.TextWriter,System.Collections.Generic.IReadOnlyDictionary{System.String,Microsoft.AspNetCore.Components.Forms.IBrowserFile},System.Collections.Generic.IDictionary{System.String,IS4.SFI.WebApp.BlobArrayStream},System.Action)">
+            <summary>
+            Creates a new instance of the environment.
+            </summary>
+            <param name="js">The JavaScript runtime to use.</param>
+            <param name="writer">The writer for logging.</param>
+            <param name="inputFiles">The collection of input files.</param>
+            <param name="outputFiles">The collection of output files, which may be modified during the lifetime of the instance.</param>
+            <param name="stateChanged">An action that causes the page to be updated.</param>
+        </member>
+        <member name="M:IS4.SFI.WebApp.WebEnvironment.GetFiles(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.WebEnvironment.CreateFile(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.WebEnvironment.Update">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.WebEnvironment.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.WebApp.WebEnvironment.TextStream">
+            <summary>
+            Provides a stream that uses a <see cref="T:System.IO.TextWriter"/> instance
+            to write the characters in a given encoding.
+            </summary>
+        </member>
+        <member name="T:IS4.SFI.WebApp.WebInspector">
+            <summary>
+            The specific implementation of <see cref="T:IS4.SFI.Inspector"/> for the web application.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.WebApp.WebInspector.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.WebInspector.AddDefault">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.WebApp.WebInspector.LoadFromFile(IS4.SFI.Services.IFileInfo,IS4.SFI.Services.IDirectoryInfo)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

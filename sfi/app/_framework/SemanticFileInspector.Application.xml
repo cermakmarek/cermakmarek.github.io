@@ -1,0 +1,1027 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SemanticFileInspector.Application</name>
+    </assembly>
+    <members>
+        <member name="T:IS4.SFI.Application`1">
+            <summary>
+            The main application for analyzing input files and producing output.
+            </summary>
+            <typeparam name="TInspector">The type of <see cref="T:IS4.SFI.Inspector"/> to use.</typeparam>
+        </member>
+        <member name="P:IS4.SFI.Application`1.LogWriter">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.Application`1.WindowWidth">
+            <inheritdoc/>
+        </member>
+        <member name="P:IS4.SFI.Application`1.ExecutableName">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Application`1.#ctor(IS4.SFI.Application.IApplicationEnvironment)">
+            <summary>
+            Creates a new instance of the application from the supplied environment.
+            </summary>
+            <param name="environment">
+            An instance of <see cref="T:IS4.SFI.Application.IApplicationEnvironment"/>
+            providing manipulation with the environment.
+            </param>
+        </member>
+        <member name="M:IS4.SFI.Application`1.Run(System.String[])">
+            <summary>
+            Runs the application with the supplied arguments.
+            </summary>
+            <param name="args">The arguments to the application.</param>
+        </member>
+        <member name="M:IS4.SFI.Application`1.OnOutputFile(System.Boolean,IS4.SFI.Services.INodeMatchProperties,System.Func{System.IO.Stream,System.Threading.Tasks.ValueTask})">
+            <summary>
+            Called from an analyzer when an output file should be created.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Application`1.SetProperties(System.Object,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Assigns the values of properties on a component.
+            </summary>
+            <param name="component">The component to assign to.</param>
+            <param name="componentName">The name of the component, for diagnostics.</param>
+            <param name="properties">The dictionary of property names and their values to assign.</param>
+        </member>
+        <member name="M:IS4.SFI.Application`1.GetConfigurableProperties(System.Object)">
+            <summary>
+            Returns the collection of all properties on a component
+            that can be configured from the command line.
+            </summary>
+            <remarks>
+            Configurable properties are those properties that can be set (not read-only),
+            which do not have [<see cref="T:System.ComponentModel.BrowsableAttribute"/>(<see langword="false"/>)], and their type
+            can be converted to and from <see cref="T:System.String"/>.
+            </remarks>
+        </member>
+        <member name="M:IS4.SFI.Application`1.IsStringConvertible(System.ComponentModel.TypeConverter)">
+            <summary>
+            Checks whether <paramref name="converter"/> can be used to convert to and from
+            <see cref="T:System.String"/>.
+            </summary>
+            <param name="converter">The converter to check.</param>
+            <returns><see langword="true"/> if the conversion is permitted, <see langword="false"/> otherwise.</returns>
+        </member>
+        <member name="M:IS4.SFI.Application`1.IsIncluded``1(``0,System.String)">
+            <summary>
+            Checks whether a component is matched by the inner list of matchers.
+            </summary>
+            <typeparam name="T">The type of the component.</typeparam>
+            <param name="component">The component object.</param>
+            <param name="name">The name of the component.</param>
+            <returns>Whether the component should be included.</returns>
+        </member>
+        <member name="P:IS4.SFI.Application`1.Usage">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Application`1.Description">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Application`1.Mode">
+            <summary>
+            The operating mode of the application.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Application`1.Mode.Describe">
+            <summary>
+            The application should describe the input files in RDF.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Application`1.Mode.Search">
+            <summary>
+            The application should search input files using SPARQL.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Application`1.Mode.List">
+            <summary>
+            The application should list all available components.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Application`1.GetOptions">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Application`1.OnOperandFound(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Application`1.OnOptionFound(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Application`1.OnOptionArgumentFound(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.CommandApplication">
+            <summary>
+            An abstract command-based application.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.CommandApplication.Assembly">
+            <summary>
+            The assembly of the current program.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.CommandApplication.ApplicationName">
+            <summary>
+            The name of the application.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.CommandApplication.ExecutableName">
+            <summary>
+            The name of the executable.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.CommandApplication.LogWriter">
+            <summary>
+            The writer to use for writing messages for the user.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.CommandApplication.WindowWidth">
+            <summary>
+            The expected window width.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.Banner">
+            <summary>
+            Writes a short text about the application.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.Description">
+            <summary>
+            Writes the description of the application.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.GetOptions">
+            <summary>
+            Returns the list of available options, for example
+            as <see cref="T:IS4.SFI.CommandApplication.OptionInfoCollection"/>.
+            </summary>
+            <returns>The list of options available to use.</returns>
+        </member>
+        <member name="P:IS4.SFI.CommandApplication.Usage">
+            <summary>
+            The command usage of the application.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.Help">
+            <summary>
+            Writes the help screen and terminates the application.
+            </summary>
+            <exception cref="T:IS4.SFI.CommandApplication.ApplicationExitException">
+            Thrown at the end of the method.
+            </exception>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.Notes">
+            <summary>
+            Writes additional notes about the application or its usage.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OutputWrapPad(System.String,System.Int32)">
+            <summary>
+            Writes text to the output, padded by <paramref name="pad"/> spaces
+            from both sides of the window, wrapping it if necessary.
+            </summary>
+            <param name="text">The text to write.</param>
+            <param name="pad">The number of spaces to pad with.</param>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OutputWrapPad(System.String,System.Int32,System.Int32)">
+            <summary>
+            Writes text to the output, padded by <paramref name="padLeft"/> spaces
+            from both sides of the window, wrapping it if necessary.
+            </summary>
+            <param name="text">The text to write.</param>
+            <param name="padLeft">The number of spaces to pad with.</param>
+            <param name="textWidth">The maximum characters allowed on a line.</param>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OnOptionFound(System.String)">
+            <summary>
+            Called internally from <see cref="M:IS4.SFI.CommandApplication.Parse(System.String[])"/> when
+            an option is found.
+            </summary>
+            <param name="option">The name of the option, without any delimiter characters.</param>
+            <returns>
+            One of the values of <see cref="T:IS4.SFI.OptionArgument"/> specifying
+            the argument handling for this option.
+            </returns>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OnOptionArgumentFound(System.String,System.String)">
+            <summary>
+            Called internally from <see cref="M:IS4.SFI.CommandApplication.Parse(System.String[])"/> when
+            an argument for an option is found.
+            </summary>
+            <param name="option">The name of the option, without any delimiter characters.</param>
+            <param name="argument">The argument of the option.</param>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OnOperandFound(System.String)">
+            <summary>
+            Called internally from <see cref="M:IS4.SFI.CommandApplication.Parse(System.String[])"/> when
+            the command's operand is found.
+            </summary>
+            <param name="operand">The value of the operand.</param>
+            <returns>
+            One of the values of <see cref="T:IS4.SFI.OperandState"/> specifying
+            the state of the parser after this operand.
+            </returns>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OnShortOptionFound(System.Char)">
+            <summary>
+            Called internally from <see cref="M:IS4.SFI.CommandApplication.Parse(System.String[])"/> when
+            a short option is found. The default implementation
+            calls <see cref="M:IS4.SFI.CommandApplication.OnOptionFound(System.String)"/>.
+            </summary>
+            <param name="option">The name of the option, without any delimiter characters.</param>
+            <returns>
+            One of the values of <see cref="T:IS4.SFI.OptionArgument"/> specifying
+            the argument handling for this option.
+            </returns>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OnShortOptionArgumentFound(System.Char,System.String)">
+            <summary>
+            Called internally from <see cref="M:IS4.SFI.CommandApplication.Parse(System.String[])"/> when
+            an argument for a short option is found. The default implementation
+            calls <see cref="M:IS4.SFI.CommandApplication.OnOptionArgumentFound(System.String,System.String)"/>.
+            </summary>
+            <param name="option">The name of the option, without any delimiter characters.</param>
+            <param name="argument">The argument of the option.</param>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.ProcessArg(System.String)">
+            <summary>
+            Modifies the input argument in a desirable way
+            before it is parsed by <see cref="M:IS4.SFI.CommandApplication.Parse(System.String[])"/>.
+            </summary>
+            <param name="arg">The input argument.</param>
+            <returns>The modified value.</returns>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.Parse(System.String[])">
+            <summary>
+            Parses the arguments provided to the application
+            and initializes it with the values specified
+            by the arguments.
+            </summary>
+            <param name="args"></param>
+            <exception cref="T:IS4.SFI.CommandApplication.ApplicationExitException">
+            Could be thrown from one of the option or operand handler
+            to indicate that the application should be terminated.
+            </exception>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.UnrecognizedOption(System.Char)">
+            <summary>
+            Produces an exception when an unrecognized option is found.
+            </summary>
+            <param name="option">The name of the option.</param>
+            <returns>The exception for this situation.</returns>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.UnrecognizedOption(System.String)">
+            <summary>
+            Produces an exception when an unrecognized option is found.
+            </summary>
+            <param name="option">The name of the option.</param>
+            <returns>The exception for this situation.</returns>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.ArgumentExpected(System.Char)">
+            <summary>
+            Produces an exception when an option should
+            have an argument, but none is found in the input.
+            </summary>
+            <param name="option">The name of the option.</param>
+            <returns>The exception for this situation.</returns>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.ArgumentExpected(System.String)">
+            <summary>
+            Produces an exception when an option should
+            have an argument, but none is found in the input.
+            </summary>
+            <param name="option">The name of the option.</param>
+            <returns>The exception for this situation.</returns>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.ArgumentNotExpected(System.Char)">
+            <summary>
+            Produces an exception when an option should not
+            have an argument, but one is assigned to it.
+            </summary>
+            <param name="option">The name of the option.</param>
+            <returns>The exception for this situation.</returns>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.ArgumentNotExpected(System.String)">
+            <summary>
+            Produces an exception when an option should not
+            have an argument, but one is assigned to it.
+            </summary>
+            <param name="option">The name of the option.</param>
+            <returns>The exception for this situation.</returns>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.ArgumentInvalid(System.Char,System.String)">
+            <summary>
+            Produces an exception when an option has
+            an argument in an invalid form.
+            </summary>
+            <param name="option">The name of the option.</param>
+            <param name="expected">The expected form of the argument.</param>
+            <returns>The exception for this situation.</returns>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.ArgumentInvalid(System.String,System.String)">
+            <summary>
+            Produces an exception when an option has
+            an argument in an invalid form.
+            </summary>
+            <param name="option">The name of the option.</param>
+            <param name="expected">The expected form of the argument.</param>
+            <returns>The exception for this situation.</returns>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OptionAlreadySpecified(System.Char)">
+            <summary>
+            Produces an exception when an option should
+            be specified only once, but it was used multiple times.
+            </summary>
+            <param name="option">The name of the option.</param>
+            <returns>The exception for this situation.</returns>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OptionAlreadySpecified(System.String)">
+            <summary>
+            Produces an exception when an option should
+            be specified only once, but it was used multiple times.
+            </summary>
+            <param name="option">The name of the option.</param>
+            <returns>The exception for this situation.</returns>
+        </member>
+        <member name="T:IS4.SFI.CommandApplication.OptionInfoCollection">
+            <summary>
+            Provides a collection of instances of <see cref="T:IS4.SFI.CommandApplication.OptionInfo"/>
+            with a convenient <see cref="M:IS4.SFI.CommandApplication.OptionInfoCollection.Add(System.String,System.String,System.String,System.String)"/>
+            method.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OptionInfoCollection.#ctor">
+            <summary>
+            Creates a new instance of the collection.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OptionInfoCollection.#ctor(System.Int32)">
+            <summary>
+            Creates a new instance of the collection with a given capacity.
+            </summary>
+            <param name="capacity">The capacity of the collection.</param>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OptionInfoCollection.#ctor(System.Collections.Generic.IEnumerable{IS4.SFI.CommandApplication.OptionInfo})">
+            <summary>
+            Creates a new instance of the collection from existing members.
+            </summary>
+            <param name="collection">The members of the collection.</param>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OptionInfoCollection.Add(System.String,System.String,System.String,System.String)">
+            <summary>
+            Adds a new option to the collection.
+            </summary>
+            <param name="shortName">The short name of the option.</param>
+            <param name="longName">The long name of the option.</param>
+            <param name="argument">The type of the argument for the option.</param>
+            <param name="description">The description of the option.</param>
+        </member>
+        <member name="T:IS4.SFI.CommandApplication.OptionInfo">
+            <summary>
+            Represents a single option.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.CommandApplication.OptionInfo.ShortName">
+            <summary>
+            The short name of the option.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.CommandApplication.OptionInfo.LongName">
+            <summary>
+            The long name of the option.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.CommandApplication.OptionInfo.Argument">
+            <summary>
+            The type of the argument for the option.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.CommandApplication.OptionInfo.Description">
+            <summary>
+            The description of the option.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.CommandApplication.OptionInfo.ArgumentText">
+            <summary>
+            A text when the argument should be displayed.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.CommandApplication.OptionInfo.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a new instance of the option.
+            </summary>
+            <param name="shortName">The value of <see cref="P:IS4.SFI.CommandApplication.OptionInfo.ShortName"/>.</param>
+            <param name="longName">The value of <see cref="P:IS4.SFI.CommandApplication.OptionInfo.LongName"/>.</param>
+            <param name="argument">The value of <see cref="P:IS4.SFI.CommandApplication.OptionInfo.Argument"/>.</param>
+            <param name="description">The value of <see cref="P:IS4.SFI.CommandApplication.OptionInfo.Description"/>.</param>
+        </member>
+        <member name="T:IS4.SFI.CommandApplication.ApplicationExitException">
+            <summary>
+            Thrown from within one of the methods to indicate that the
+            application should be terminated.
+            </summary>
+        </member>
+        <member name="T:IS4.SFI.OptionArgument">
+            <summary>
+            Specifies the argument handling for an encountered option.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.OptionArgument.None">
+            <summary>
+            The option should not have any argument.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.OptionArgument.Optional">
+            <summary>
+            The option has an optional argument.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.OptionArgument.Required">
+            <summary>
+            The option has a required argument.
+            </summary>
+        </member>
+        <member name="T:IS4.SFI.OperandState">
+            <summary>
+            Specifies the state of the parser after an operand is encountered.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.OperandState.ContinueOptions">
+            <summary>
+            The options may still be provided.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.OperandState.OnlyOperands">
+            <summary>
+            Only operands are accepted after this point.
+            </summary>
+        </member>
+        <member name="T:IS4.SFI.Application.ComponentCollection">
+            <summary>
+            Stores information about a collection of configurable components.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Application.ComponentCollection.Collection">
+            <summary>
+            The collection of all components.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Application.ComponentCollection.Attribute">
+            <summary>
+            The attribute describing the collection.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentCollection.#ctor(System.Collections.IEnumerable,IS4.SFI.ComponentCollectionAttribute)">
+            <summary>
+            Creates a new instance of the collection.
+            </summary>
+            <param name="collection">The value of <see cref="P:IS4.SFI.Application.ComponentCollection.Collection"/>.</param>
+            <param name="attribute">The value of <see cref="P:IS4.SFI.Application.ComponentCollection.Attribute"/>.</param>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentCollection.Equals(IS4.SFI.Application.ComponentCollection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentCollection.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentCollection.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentCollection.GetIdentifier(System.Object)">
+            <summary>
+            Returns the identifier of a component with the prefix of this collection.
+            </summary>
+            <param name="component">The component.</param>
+            <returns>The identifier of the component.</returns>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentCollection.Create(System.Type,System.Collections.IEnumerable,IS4.SFI.ComponentCollectionAttribute)">
+            <summary>
+            Creates a new instance of the collection with a particular element type.
+            </summary>
+            <param name="elementType">The element type of the collection.</param>
+            <param name="collection"><inheritdoc path="/param[@name='collection']" cref="M:IS4.SFI.Application.ComponentCollection.#ctor(System.Collections.IEnumerable,IS4.SFI.ComponentCollectionAttribute)"/></param>
+            <param name="attribute"><inheritdoc path="/param[@name='attribute']" cref="M:IS4.SFI.Application.ComponentCollection.#ctor(System.Collections.IEnumerable,IS4.SFI.ComponentCollectionAttribute)"/></param>
+            <returns>A new instance of the collection.</returns>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentCollection.CreateInstance``2(IS4.SFI.Application.ComponentType,IS4.SFI.IResultFactory{``0,``1},``1)">
+            <summary>
+            Creates a new instance of a component for this collection.
+            </summary>
+            <typeparam name="TResult">The return type of <paramref name="resultFactory"/>.</typeparam>
+            <typeparam name="TArgs">The arguments type of <paramref name="resultFactory"/>.</typeparam>
+            <param name="component">The component type to create an instance of.</param>
+            <param name="resultFactory">A factory object receiving the created instance.</param>
+            <param name="args">Arguments of <paramref name="resultFactory"/>.</param>
+            <returns>The result of <paramref name="resultFactory"/>.</returns>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentCollection.ForEach(IS4.SFI.IResultFactory{System.ValueTuple,System.String})">
+            <summary>
+            Invokes <paramref name="resultFactory"/> over each element in the collection.
+            </summary>
+            <param name="resultFactory">The function object, receiving the element and its name.</param>
+            <returns>An empty task.</returns>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentCollection.Filter(IS4.SFI.IResultFactory{System.Boolean,System.String})">
+            <summary>
+            Invokes <paramref name="resultFactory"/> for each element in the collection
+            and removes non-matching elements.
+            </summary>
+            <param name="resultFactory">
+            The function object, receiving the element and its name.
+            If it returns <see langword="false"/>, the element is removed from the collection.
+            </param>
+            <returns>The total number of elements.</returns>
+        </member>
+        <member name="T:IS4.SFI.Application.ComponentCollection`1">
+            <summary>
+            Stores information about a collection of configurable components, constrained to
+            type <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">The type of the components in the collection.</typeparam>
+        </member>
+        <member name="P:IS4.SFI.Application.ComponentCollection`1.Collection">
+            <inheritdoc cref="P:IS4.SFI.Application.ComponentCollection.Collection"/>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentCollection`1.#ctor(System.Collections.Generic.ICollection{`0},IS4.SFI.ComponentCollectionAttribute)">
+            <inheritdoc cref="M:IS4.SFI.Application.ComponentCollection.#ctor(System.Collections.IEnumerable,IS4.SFI.ComponentCollectionAttribute)"/>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentCollection`1.CreateInstance``2(IS4.SFI.Application.ComponentType,IS4.SFI.IResultFactory{``0,``1},``1)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentCollection`1.ForEach(IS4.SFI.IResultFactory{System.ValueTuple,System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentCollection`1.Filter(IS4.SFI.IResultFactory{System.Boolean,System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="T:IS4.SFI.Application.ComponentType">
+            <summary>
+            Stores information about an externally loadable component.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Application.ComponentType.Type">
+            <summary>
+            The type of the component.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Application.ComponentType.Error">
+            <summary>
+            <see langword="true"/> if an error occurred during the creation of the object.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Application.ComponentType.Instance">
+            <summary>
+            The instance of the component, if previously created.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentType.#ctor(System.Type,System.Func{System.Object},IS4.SFI.ComponentInspector)">
+            <summary>
+            Creates a new instance of the class.
+            </summary>
+            <param name="type">The value of <paramref name="type"/>.</param>
+            <param name="factory">The factory function producing instances for the component.</param>
+            <param name="inspector">The instance of <see cref="T:IS4.SFI.ComponentInspector"/> storing the components.</param>
+        </member>
+        <member name="M:IS4.SFI.Application.ComponentType.GetInstance">
+            <summary>
+            Retrieves or creates a new instance of the component.
+            </summary>
+            <returns>The created instance.</returns>
+        </member>
+        <member name="T:IS4.SFI.Application.IApplicationEnvironment">
+            <summary>
+            Provides environment-specific properties and methods.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Application.IApplicationEnvironment.WindowWidth">
+            <summary>
+            The width of the console window or screen in characters.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Application.IApplicationEnvironment.NewLine">
+            <summary>
+            The sequence of characters to use as a newline.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Application.IApplicationEnvironment.LogWriter">
+            <summary>
+            The writer to use for log messages or diagnostics.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Application.IApplicationEnvironment.ExecutableName">
+            <summary>
+            The name of the executable.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Application.IApplicationEnvironment.GetFiles(System.String)">
+            <summary>
+            Retrieves a collection of files identified by <paramref name="path"/>.
+            </summary>
+            <param name="path">The path to the files, supporting wildcards.</param>
+            <returns>The collection of files with names matching <paramref name="path"/>.</returns>
+        </member>
+        <member name="M:IS4.SFI.Application.IApplicationEnvironment.CreateFile(System.String,System.String)">
+            <summary>
+            Creates an output file and opens a write stream to it.
+            </summary>
+            <param name="path">The path to the file.</param>
+            <param name="mediaType">The media type of the file.</param>
+            <returns>A stream to the newly created file.</returns>
+        </member>
+        <member name="M:IS4.SFI.Application.IApplicationEnvironment.Update">
+            <summary>
+            Updates the application with new results.
+            </summary>
+        </member>
+        <member name="T:IS4.SFI.Application.Plugin">
+            <summary>
+            Stores information about a plugin.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Application.Plugin.Directory">
+            <summary>
+            The main directory of the plugin.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Application.Plugin.MainFile">
+            <summary>
+            The name of the entry file of the plugin.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Application.Plugin.#ctor(IS4.SFI.Services.IDirectoryInfo,System.String)">
+            <summary>
+            Creates a new instance of the plugin.
+            </summary>
+            <param name="directory">The value of <see cref="P:IS4.SFI.Application.Plugin.Directory"/>.</param>
+            <param name="mainFile">The value of <see cref="P:IS4.SFI.Application.Plugin.MainFile"/>.</param>
+        </member>
+        <member name="T:IS4.SFI.ComponentInspector">
+            <summary>
+            An implementation of <see cref="T:IS4.SFI.Inspector"/> allowing automatic management
+            of component collections.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.ComponentInspector.ComponentCollections">
+            <summary>
+            Stores all component collections managed by the instance.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.ComponentInspector.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.ComponentInspector.AddDefault">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.ComponentInspector.CaptureCollections(System.Object,System.Boolean)">
+            <summary>
+            Browses an object, looking for all properties with <see cref="T:IS4.SFI.ComponentCollectionAttribute"/>
+            and loading the component collections within.
+            </summary>
+            <param name="instance">The instance to browse.</param>
+            <param name="updateExisting">Whether to update previously found collections.</param>
+        </member>
+        <member name="T:IS4.SFI.ExtensibleInspector">
+            <summary>
+            An implementation of <see cref="T:IS4.SFI.Inspector"/> allowing loading of plugins.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.ExtensibleInspector.Plugins">
+            <summary>
+            Contains the collection of plugins loaded by the inspector.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.ExtensibleInspector.AddDefault">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.ExtensibleInspector.LoadFromFile(IS4.SFI.Services.IFileInfo,IS4.SFI.Services.IDirectoryInfo)">
+            <summary>
+            Loads an assembly from a file.
+            </summary>
+            <param name="file">The assembly file.</param>
+            <param name="mainDirectory">The directory storing the file, used for dependency lookup.</param>
+            <returns>The newly loaded assembly.</returns>
+        </member>
+        <member name="M:IS4.SFI.ExtensibleInspector.GetDirectory(System.IO.Compression.ZipArchive)">
+            <summary>
+            Opens a ZIP archive as a directory.
+            </summary>
+            <param name="archive">The ZIP archive to use.</param>
+            <returns>An instance of <see cref="T:IS4.SFI.Services.IDirectoryInfo"/> for the archive.</returns>
+        </member>
+        <member name="M:IS4.SFI.ExtensibleInspector.GetDirectory(System.IO.DirectoryInfo)">
+            <summary>
+            Opens an instance of <see cref="T:System.IO.DirectoryInfo"/> as a directory.
+            </summary>
+            <param name="directory">The directory to use.</param>
+            <returns>An instance of <see cref="T:IS4.SFI.Services.IDirectoryInfo"/> for the directory.</returns>
+        </member>
+        <member name="M:IS4.SFI.ExtensibleInspector.LoadPlugin(IS4.SFI.Services.IDirectoryInfo,System.String)">
+            <summary>
+            Loads a plugin from a file in a directory.
+            </summary>
+            <param name="mainDirectory">The directory to search.</param>
+            <param name="mainFile">The name of the main file.</param>
+            <returns>A collection of all instantiable types in the assembly, together with their constructor.</returns>
+        </member>
+        <member name="T:IS4.SFI.Inspector">
+            <summary>
+            Provides the support for describing input files
+            and configuring analyzer components.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Inspector.FileAnalyzer">
+            <summary>
+            The default file analyzer.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Inspector.DataAnalyzer">
+            <summary>
+            The default data analyzer.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Inspector.DataObjectAnalyzer">
+            <summary>
+            The default <see cref="T:IS4.SFI.Services.IDataObject"/> analyzer.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Inspector.XmlAnalyzer">
+            <summary>
+            The default XML analyzer.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Inspector.BitTorrentHash">
+            <summary>
+            The BitTorrent Info-hash algorithm.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.Inspector.OutputLog">
+            <inheritdoc cref="P:IS4.SFI.EntityAnalyzerProvider.OutputLog"/>
+        </member>
+        <member name="M:IS4.SFI.Inspector.#ctor">
+            <summary>
+            Creates a new instance of the inspector and initializes several
+            core analyzers.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Inspector.AddDefault">
+            <summary>
+            Adds the default formats and analyzers.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Inspector.Inspect(System.String,System.String,IS4.SFI.InspectorOptions)">
+            <summary>
+            Describes a file on the local drive.
+            </summary>
+            <param name="file">The input file to describe.</param>
+            <param name="output">The output file where to store the RDF description.</param>
+            <param name="options">Additional options.</param>
+        </member>
+        <member name="M:IS4.SFI.Inspector.Inspect``1(``0,System.String,IS4.SFI.InspectorOptions)">
+            <summary>
+            Describes an entity.
+            </summary>
+            <typeparam name="T">The type of <paramref name="entity"/>.</typeparam>
+            <param name="entity">The entity to describe.</param>
+            <param name="output">The output file where to store the RDF description.</param>
+            <param name="options">Additional options.</param>
+        </member>
+        <member name="M:IS4.SFI.Inspector.Inspect``1(``0,System.IO.Stream,IS4.SFI.InspectorOptions)">
+            <summary>
+            Describes an entity.
+            </summary>
+            <typeparam name="T">The type of <paramref name="entity"/>.</typeparam>
+            <param name="entity">The entity to describe.</param>
+            <param name="output">The output stream where to store the RDF description.</param>
+            <param name="options">Additional options.</param>
+        </member>
+        <member name="M:IS4.SFI.Inspector.Inspect``1(System.Collections.Generic.IEnumerable{``0},System.String,IS4.SFI.InspectorOptions)">
+            <summary>
+            Describes a collection of entities.
+            </summary>
+            <typeparam name="T">The types of <paramref name="entities"/>.</typeparam>
+            <param name="entities">The entities to describe.</param>
+            <param name="output">The output file where to store the RDF description.</param>
+            <param name="options">Additional options.</param>
+        </member>
+        <member name="M:IS4.SFI.Inspector.Inspect``1(System.Collections.Generic.IEnumerable{``0},System.IO.Stream,IS4.SFI.InspectorOptions)">
+            <summary>
+            Describes a collection of entities.
+            </summary>
+            <typeparam name="T">The types of <paramref name="entities"/>.</typeparam>
+            <param name="entities">The entities to describe.</param>
+            <param name="output">The output stream where to store the RDF description.</param>
+            <param name="options">Additional options.</param>
+        </member>
+        <member name="M:IS4.SFI.Inspector.Inspect``1(System.Collections.Generic.IEnumerable{``0},System.Func{System.String,System.IO.Stream},IS4.SFI.InspectorOptions)">
+            <summary>
+            Describes a collection of entities.
+            </summary>
+            <typeparam name="T">The types of <paramref name="entities"/>.</typeparam>
+            <param name="entities">The entities to describe.</param>
+            <param name="outputFactory">A function producing the output stream where to store the RDF description, with the format MIME type as the argument.</param>
+            <param name="options">Additional options.</param>
+        </member>
+        <member name="M:IS4.SFI.Inspector.WriteRdfToOutput``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IReadOnlyCollection{VDS.RDF.Query.SparqlQuery},System.Collections.Generic.IReadOnlyDictionary{System.Uri,VDS.RDF.IRdfHandler},System.Func{System.IO.Stream},VDS.RDF.MimeTypeDefinition,IS4.SFI.InspectorOptions)">
+            <summary>
+            Immediately saves the data to output without an intermediate storage.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Inspector.SaveRdfToOutput``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IReadOnlyCollection{VDS.RDF.Query.SparqlQuery},System.Collections.Generic.IReadOnlyDictionary{System.Uri,VDS.RDF.IRdfHandler},System.Func{System.IO.Stream},VDS.RDF.MimeTypeDefinition,IS4.SFI.InspectorOptions)">
+            <summary>
+            Stores the data in a graph and then saves it.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Inspector.WriteSparqlToOutput``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IReadOnlyCollection{VDS.RDF.Query.SparqlQuery},System.Collections.Generic.IReadOnlyDictionary{System.Uri,VDS.RDF.IRdfHandler},System.Func{System.IO.Stream},VDS.RDF.MimeTypeDefinition,IS4.SFI.InspectorOptions)">
+            <summary>
+            Immediately saves the data to output without an intermediate storage.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Inspector.SaveSparqlToOutput``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IReadOnlyCollection{VDS.RDF.Query.SparqlQuery},System.Collections.Generic.IReadOnlyDictionary{System.Uri,VDS.RDF.IRdfHandler},System.Func{System.IO.Stream},VDS.RDF.MimeTypeDefinition,IS4.SFI.InspectorOptions)">
+            <summary>
+            Stores the data in a graph and then saves it.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Inspector.GetQueries(IS4.SFI.InspectorOptions)">
+            <summary>
+            Loads SPARQL queries from options.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Inspector.AnalyzeEntity``1(``0,VDS.RDF.IRdfHandler,System.Collections.Generic.IReadOnlyDictionary{System.Uri,VDS.RDF.IRdfHandler},VDS.RDF.INamespaceMapper,IS4.SFI.NodeQueryTester,IS4.SFI.InspectorOptions)">
+            <summary>
+            Analyzes a single entity.
+            </summary>
+            <typeparam name="T">The type of <paramref name="entity"/>.</typeparam>
+            <param name="entity">The entity to analyze.</param>
+            <param name="rdfHandler">The RDF handler to receive the description of the entity.</param>
+            <param name="graphHandlers">A collection of RDF handlers for other graphs.</param>
+            <param name="mapper">The mapper storing default namespaces to add to <paramref name="rdfHandler"/>..</param>
+            <param name="queryTester">An instance of <see cref="T:IS4.SFI.NodeQueryTester"/> to match nodes using user-provided queries.</param>
+            <param name="options">Additional options.</param>
+            <returns>The result of the analysis.</returns>
+        </member>
+        <member name="M:IS4.SFI.Inspector.OpenFile(System.Func{System.IO.Stream},System.Boolean,IS4.SFI.InspectorOptions)">
+            <summary>
+            Opens an output file as text.
+            </summary>
+            <param name="fileFactory">The function to provide the output stream.</param>
+            <param name="compressed">Whether to compress the output with gzip.</param>
+            <param name="options">Additional options.</param>
+            <returns>Text writer to the output file.</returns>
+        </member>
+        <member name="M:IS4.SFI.Inspector.CreateRdfFileHandler(System.Func{System.IO.Stream},VDS.RDF.INamespaceMapper@,IS4.SFI.InspectorOptions,VDS.RDF.MimeTypeDefinition,VDS.RDF.IRdfHandler@)">
+            <summary>
+            Creates an RDF handler for writing directly to the output file.
+            </summary>
+            <param name="outputFactory">The function to provide the output stream.</param>
+            <param name="mapper">A variable that receives the instance of <see cref="T:VDS.RDF.INamespaceMapper"/> representing the namespaces in use by the handler.</param>
+            <param name="options">Additional options.</param>
+            <param name="format">The format to use for writing.</param>
+            <param name="handler">A variable that receives the RDF handler to use.</param>
+            <returns>An instance of <see cref="T:System.IDisposable"/> representing the open file.</returns>
+        </member>
+        <member name="M:IS4.SFI.Inspector.CreateFormatter(System.String,System.Type,VDS.RDF.QNameOutputMapper)">
+            <summary>
+            Creates a new instance of <see cref="T:VDS.RDF.Writing.Formatting.ITripleFormatter"/> from the corresponding
+            arguments.
+            </summary>
+            <param name="name">The name of the format, for diagnostics.</param>
+            <param name="formatterType">The type of the formatter.</param>
+            <param name="mapper">The namespace mapper to provide to the formatter.</param>
+            <returns>A new instance of the formatter.</returns>
+        </member>
+        <member name="M:IS4.SFI.Inspector.CreateGraphHandler(System.Boolean,VDS.RDF.Graph@)">
+            <summary>
+            Creates an RDF handler for asserting triples into a graph.
+            </summary>
+            <param name="immediate">Whether the triples encountered by the handler have to be immediately added to the graph.</param>
+            <param name="graph">The variable that receives the created graph.</param>
+            <returns>The RDF handler to use.</returns>
+        </member>
+        <member name="M:IS4.SFI.Inspector.SetDefaultNamespaces(VDS.RDF.INamespaceMapper)">
+            <summary>
+            Registers default namespaces that are always in use.
+            </summary>
+            <param name="mapper">The mapper that receives the namespaces.</param>
+        </member>
+        <member name="M:IS4.SFI.Inspector.SaveGraph(VDS.RDF.Graph,System.Func{System.IO.Stream},IS4.SFI.InspectorOptions,VDS.RDF.MimeTypeDefinition)">
+            <summary>
+            Saves a graph to the output.
+            </summary>
+            <param name="graph">The graph to save.</param>
+            <param name="outputFactory">The function to provide the output stream.</param>
+            <param name="options">Additional options.</param>
+            <param name="format">The format to use for writing.</param>
+        </member>
+        <member name="M:IS4.SFI.Inspector.ConfigureWriter(System.Object,IS4.SFI.InspectorOptions)">
+            <summary>
+            Configures an arbitrary writer instance based on the supplied options.
+            </summary>
+            <param name="writer">The RDF writer.</param>
+            <param name="options">The options.</param>
+        </member>
+        <member name="T:IS4.SFI.InspectorOptions">
+            <summary>
+            Additional options and configuration of <see cref="T:IS4.SFI.Inspector"/>.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.InspectorOptions.DirectOutput">
+            <summary>
+            Whether to write the output directly or use an intermediate graph.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.InspectorOptions.CompressedOutput">
+            <summary>
+            Whether to compress the output file with gzip.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.InspectorOptions.HideMetadata">
+            <summary>
+            Whether to hide metadata properties, such as
+            <see cref="F:IS4.SFI.Vocabulary.Properties.Visited"/>, from the output.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.InspectorOptions.PrettyPrint">
+            <summary>
+            Whether to prettify the text output.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.InspectorOptions.Queries">
+            <summary>
+            Input SPARQL queries to be used to search in the description.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.InspectorOptions.OutputIsSparqlResults">
+            <summary>
+            Whether the output file should be used to write SPARQL results.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.InspectorOptions.Root">
+            <summary>
+            The root of the URI hierarchy; by default <see cref="F:IS4.SFI.LinkedNodeHandler.BlankUriScheme"/>.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.InspectorOptions.NewLine">
+            <summary>
+            The sequence of characters used for separating lines in text output.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.InspectorOptions.Node">
+            <summary>
+            The URI of the described node.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.InspectorOptions.Format">
+            <summary>
+            Contains the desired output format, as a file extension.
+            </summary>
+        </member>
+        <member name="P:IS4.SFI.InspectorOptions.SimplifyBlankNodes">
+            <summary>
+            Whether to shorten blank node IDs in the resulting graph.
+            </summary>
+        </member>
+        <member name="T:IS4.SFI.NamespaceHandler">
+            <summary>
+            An implementation of <see cref="T:VDS.RDF.IRdfHandler"/> that wraps
+            another <see cref="T:VDS.RDF.IRdfHandler"/> and also registers each namespace
+            in an instance of <see cref="T:VDS.RDF.QNameOutputMapper"/>.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.NamespaceHandler.#ctor(VDS.RDF.IRdfHandler,VDS.RDF.QNameOutputMapper)">
+            <summary>
+            Creates a new instance of the handler.
+            </summary>
+            <param name="baseHandler">The base RDF handler to delegate the calls to.</param>
+            <param name="mapper">A namespace mapper for registering namespaces from <see cref="M:IS4.SFI.NamespaceHandler.HandleNamespace(System.String,System.Uri)"/>.</param>
+        </member>
+        <member name="T:IS4.SFI.SparqlValuesQueryWriter">
+            <summary>
+            Provides an implementation of <see cref="T:VDS.RDF.ISparqlResultsWriter"/> that produces
+            a SPARQL query from the results. The query uses DISTINCT, and does not store
+            results with blank nodes.
+            </summary>
+        </member>
+        <member name="T:IS4.SFI.TemporaryGraphHandler">
+            <summary>
+            An RDF handler that asserts triples in a temporary graph
+            which is regularly cleared.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.TemporaryGraphHandler.#ctor(VDS.RDF.IRdfHandler,VDS.RDF.Graph@)">
+            <summary>
+            Creates a new instance of the handler.
+            </summary>
+            <param name="baseHandler">The base RDF handler to delegate the calls to.</param>
+            <param name="graph">
+            The variable which receives the graph for the intermediate results.
+            This graph is cleared on calls to <see cref="M:IS4.SFI.TemporaryGraphHandler.HandleBaseUri(System.Uri)"/>.
+            </param>
+        </member>
+        <member name="M:IS4.SFI.TemporaryGraphHandler.#ctor(VDS.RDF.Graph@)">
+            <inheritdoc cref="M:IS4.SFI.TemporaryGraphHandler.#ctor(VDS.RDF.IRdfHandler,VDS.RDF.Graph@)"/>
+        </member>
+    </members>
+</doc>
