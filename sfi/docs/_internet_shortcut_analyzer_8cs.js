@@ -1,0 +1,4 @@
+var _internet_shortcut_analyzer_8cs =
+[
+    [ "IS4.SFI.Analyzers.InternetShortcutAnalyzer", "class_i_s4_1_1_s_f_i_1_1_analyzers_1_1_internet_shortcut_analyzer.html", "class_i_s4_1_1_s_f_i_1_1_analyzers_1_1_internet_shortcut_analyzer" ]
+];

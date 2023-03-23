@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['analyzers_0',['Analyzers',['../namespace_i_s4_1_1_s_f_i_1_1_analyzers.html',1,'IS4::SFI']]],
+  ['application_1',['Application',['../namespace_i_s4_1_1_s_f_i_1_1_application.html',1,'IS4::SFI']]],
+  ['archives_2',['Archives',['../namespace_i_s4_1_1_s_f_i_1_1_formats_1_1_archives.html',1,'IS4::SFI::Formats']]],
+  ['audio_3',['Audio',['../namespace_i_s4_1_1_s_f_i_1_1_media_analysis_1_1_audio.html',1,'IS4::SFI::MediaAnalysis']]],
+  ['comtypes_4',['ComTypes',['../namespace_i_s4_1_1_s_f_i_1_1_windows_1_1_com_types.html',1,'IS4::SFI::Windows']]],
+  ['consoleapp_5',['ConsoleApp',['../namespace_i_s4_1_1_s_f_i_1_1_console_app.html',1,'IS4::SFI']]],
+  ['data_6',['Data',['../namespace_i_s4_1_1_s_f_i_1_1_formats_1_1_data.html',1,'IS4::SFI::Formats']]],
+  ['formats_7',['Formats',['../namespace_i_s4_1_1_s_f_i_1_1_formats.html',1,'IS4::SFI']]],
+  ['images_8',['Images',['../namespace_i_s4_1_1_s_f_i_1_1_media_analysis_1_1_images.html',1,'IS4::SFI::MediaAnalysis']]],
+  ['io_9',['IO',['../namespace_i_s4_1_1_s_f_i_1_1_tools_1_1_i_o.html',1,'IS4::SFI::Tools']]],
+  ['is4_10',['IS4',['../namespace_i_s4.html',1,'']]],
+  ['mediaanalysis_11',['MediaAnalysis',['../namespace_i_s4_1_1_s_f_i_1_1_media_analysis.html',1,'IS4::SFI']]],
+  ['modules_12',['Modules',['../namespace_i_s4_1_1_s_f_i_1_1_formats_1_1_modules.html',1,'IS4::SFI::Formats']]],
+  ['packages_13',['Packages',['../namespace_i_s4_1_1_s_f_i_1_1_formats_1_1_packages.html',1,'IS4::SFI::Formats']]],
+  ['sampleplugin_14',['SamplePlugin',['../namespace_i_s4_1_1_s_f_i_1_1_sample_plugin.html',1,'IS4::SFI']]],
+  ['services_15',['Services',['../namespace_i_s4_1_1_s_f_i_1_1_services.html',1,'IS4::SFI']]],
+  ['sfi_16',['SFI',['../namespace_i_s4_1_1_s_f_i.html',1,'IS4']]],
+  ['tags_17',['Tags',['../namespace_i_s4_1_1_s_f_i_1_1_tags.html',1,'IS4::SFI']]],
+  ['tests_18',['Tests',['../namespace_i_s4_1_1_s_f_i_1_1_tests.html',1,'IS4::SFI']]],
+  ['tools_19',['Tools',['../namespace_i_s4_1_1_s_f_i_1_1_tools.html',1,'IS4::SFI']]],
+  ['vocabulary_20',['Vocabulary',['../namespace_i_s4_1_1_s_f_i_1_1_vocabulary.html',1,'IS4::SFI']]],
+  ['webapp_21',['WebApp',['../namespace_i_s4_1_1_s_f_i_1_1_web_app.html',1,'IS4::SFI']]],
+  ['windows_22',['Windows',['../namespace_i_s4_1_1_s_f_i_1_1_windows.html',1,'IS4::SFI']]],
+  ['xml_23',['Xml',['../namespace_i_s4_1_1_s_f_i_1_1_tools_1_1_xml.html',1,'IS4::SFI::Tools']]]
+];

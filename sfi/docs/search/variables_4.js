@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['canonicalizationalgorithm_0',['CanonicalizationAlgorithm',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_properties.html#a2d830bdd07899ff9364c5701a1b2dd9b',1,'IS4::SFI::Vocabulary::Properties']]],
+  ['capacity_1',['Capacity',['../class_i_s4_1_1_s_f_i_1_1_temporary_graph_handler.html#a3dd134fa87288e67bdcc8e685bed6864',1,'IS4::SFI::TemporaryGraphHandler']]],
+  ['category_2',['Category',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_properties.html#aec2101275e61c50f4f029a1fa982fa26',1,'IS4::SFI::Vocabulary::Properties']]],
+  ['cert_3',['Cert',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_vocabularies_1_1_uri.html#a8df58b8801133df2f95ea803a17ce563',1,'IS4::SFI::Vocabulary::Vocabularies::Uri']]],
+  ['channels_4',['Channels',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_properties.html#ad090ef9e7e2cb6df41db9d25d41f50d7',1,'IS4::SFI::Vocabulary::Properties']]],
+  ['charactercount_5',['CharacterCount',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_properties.html#aea5a055c72e5bad6f8101307aaaf47a7',1,'IS4::SFI::Vocabulary::Properties']]],
+  ['characterencoding_6',['CharacterEncoding',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_properties.html#a8a406be77eed20241563f8faa493a364',1,'IS4::SFI::Vocabulary::Properties']]],
+  ['chars_7',['Chars',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_properties.html#a6f05af9d32e64f080e2e4448ba5f53f1',1,'IS4::SFI::Vocabulary::Properties']]],
+  ['closematch_8',['CloseMatch',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_properties.html#accd97b792312cec3d7c356cb06401827',1,'IS4::SFI::Vocabulary::Properties']]],
+  ['cnt_9',['Cnt',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_vocabularies_1_1_uri.html#aa809612bd09f4bf815b113c36a106b86',1,'IS4::SFI::Vocabulary::Vocabularies::Uri']]],
+  ['colordepth_10',['ColorDepth',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_properties.html#afcf2bdb7abe52c24fec9096c23b5e199',1,'IS4::SFI::Vocabulary::Properties']]],
+  ['compiled_11',['Compiled',['../_warc_analyzer_8cs.html#a46861ed4854ac1b14ad296f0e3170042',1,'Compiled():&#160;WarcAnalyzer.cs'],['../_file_system_analyzer_8cs.html#a46861ed4854ac1b14ad296f0e3170042',1,'Compiled():&#160;FileSystemAnalyzer.cs']]],
+  ['compressiontype_12',['CompressionType',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_properties.html#a3b0162332b3416312670e7831cba4f27',1,'IS4::SFI::Vocabulary::Properties']]],
+  ['contentasbase64_13',['ContentAsBase64',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_classes.html#aafdc911f54a8614a810d6ab3fbe6cdfd',1,'IS4::SFI::Vocabulary::Classes']]],
+  ['contentastext_14',['ContentAsText',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_classes.html#af5b7bf9bdb9d7d689f340b970bf772cc',1,'IS4::SFI::Vocabulary::Classes']]],
+  ['contentasxml_15',['ContentAsXML',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_classes.html#ac57ce6014da8d6026f6cc4bd33024f74',1,'IS4::SFI::Vocabulary::Classes']]],
+  ['contextsource_16',['ContextSource',['../class_i_s4_1_1_s_f_i_1_1_rdf_a_initial_context.html#ab9f7547ab012d14ba7f46e3a05a21fa5',1,'IS4::SFI::RdfAInitialContext']]],
+  ['controlpanel_17',['ControlPanel',['../class_i_s4_1_1_s_f_i_1_1_services_1_1_virtual_folders.html#a8922298fac5eae9d2b9912ddc71bb479',1,'IS4::SFI::Services::VirtualFolders']]],
+  ['copyrightnotice_18',['CopyrightNotice',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_properties.html#aa1ccf49a8e751745ddbf2dd775c20e5f',1,'IS4::SFI::Vocabulary::Properties']]],
+  ['crc32_19',['CRC32',['../class_i_s4_1_1_s_f_i_1_1_tools_1_1_built_in_non_cryptographic_hash.html#a567aa30bf24a7c5b750354dba4549427',1,'IS4::SFI::Tools::BuiltInNonCryptographicHash']]],
+  ['crc32_20',['Crc32',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_individuals.html#a74e410a7dfe681c73cd1eca8efac442f',1,'IS4::SFI::Vocabulary::Individuals']]],
+  ['crc64_21',['CRC64',['../class_i_s4_1_1_s_f_i_1_1_tools_1_1_built_in_non_cryptographic_hash.html#ae95124fbb12563cfd623b2b56270ee4c',1,'IS4::SFI::Tools::BuiltInNonCryptographicHash']]],
+  ['crc64_22',['Crc64',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_individuals.html#aa7b58c2e2cd48160a5fa0062b4940f72',1,'IS4::SFI::Vocabulary::Individuals']]],
+  ['created_23',['Created',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_properties.html#aa43d64fa45ba4336b58aa519a66c28b2',1,'IS4::SFI::Vocabulary::Properties']]],
+  ['creator_24',['Creator',['../class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_properties.html#a03acc22bde58840d09bc7307594a620c',1,'IS4::SFI::Vocabulary::Properties']]]
+];
