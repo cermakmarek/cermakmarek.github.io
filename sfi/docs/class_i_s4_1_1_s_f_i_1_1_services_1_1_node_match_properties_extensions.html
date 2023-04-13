@@ -104,11 +104,14 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a7562de0d0e3d0435d1f8f387070cb2ef"><td class="memItemLeft" align="right" valign="top">static IEnumerable&lt; KeyValuePair&lt; string, PropertyDescriptor &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_s4_1_1_s_f_i_1_1_services_1_1_node_match_properties_extensions.html#a7562de0d0e3d0435d1f8f387070cb2ef">GetProperties</a> (this <a class="el" href="interface_i_s4_1_1_s_f_i_1_1_services_1_1_i_node_match_properties.html">INodeMatchProperties</a> properties)</td></tr>
 <tr class="memdesc:a7562de0d0e3d0435d1f8f387070cb2ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the collection of all properties as pairs.  <br /></td></tr>
 <tr class="separator:a7562de0d0e3d0435d1f8f387070cb2ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ca4b187a5df4089eb2ab08895a3a401"><td class="memItemLeft" align="right" valign="top">static IEnumerable&lt; KeyValuePair&lt; string, object?&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_s4_1_1_s_f_i_1_1_services_1_1_node_match_properties_extensions.html#a0ca4b187a5df4089eb2ab08895a3a401">GetPropertyValues</a> (this <a class="el" href="interface_i_s4_1_1_s_f_i_1_1_services_1_1_i_node_match_properties.html">INodeMatchProperties</a> properties)</td></tr>
+<tr class="memdesc:a0ca4b187a5df4089eb2ab08895a3a401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the collection of all properties and their values as pairs.  <br /></td></tr>
+<tr class="separator:a0ca4b187a5df4089eb2ab08895a3a401"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extension methods for INodeMatchProperties. </p>
 
-<p class="definition">Definition at line <a class="el" href="_i_node_match_properties_8cs_source.html#l00044">44</a> of file <a class="el" href="_i_node_match_properties_8cs_source.html">INodeMatchProperties.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_i_node_match_properties_8cs_source.html#l00046">46</a> of file <a class="el" href="_i_node_match_properties_8cs_source.html">INodeMatchProperties.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7562de0d0e3d0435d1f8f387070cb2ef" name="a7562de0d0e3d0435d1f8f387070cb2ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7562de0d0e3d0435d1f8f387070cb2ef">&#9670;&#160;</a></span>GetProperties()</h2>
@@ -143,7 +146,44 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A sequence of pairs storing all properties of the instance.</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_i_node_match_properties_8cs_source.html#l00051">51</a> of file <a class="el" href="_i_node_match_properties_8cs_source.html">INodeMatchProperties.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_i_node_match_properties_8cs_source.html#l00053">53</a> of file <a class="el" href="_i_node_match_properties_8cs_source.html">INodeMatchProperties.cs</a>.</p>
+
+</div>
+</div>
+<a id="a0ca4b187a5df4089eb2ab08895a3a401" name="a0ca4b187a5df4089eb2ab08895a3a401"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ca4b187a5df4089eb2ab08895a3a401">&#9670;&#160;</a></span>GetPropertyValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static IEnumerable&lt; KeyValuePair&lt; string, object?&gt; &gt; IS4.SFI.Services.NodeMatchPropertiesExtensions.GetPropertyValues </td>
+          <td>(</td>
+          <td class="paramtype">this <a class="el" href="interface_i_s4_1_1_s_f_i_1_1_services_1_1_i_node_match_properties.html">INodeMatchProperties</a>&#160;</td>
+          <td class="paramname"><em>properties</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves the collection of all properties and their values as pairs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">properties</td><td>The INodeMatchProperties instance to use.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A sequence of pairs storing all properties of the instance and their values.</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_i_node_match_properties_8cs_source.html#l00063">63</a> of file <a class="el" href="_i_node_match_properties_8cs_source.html">INodeMatchProperties.cs</a>.</p>
 
 </div>
 </div>

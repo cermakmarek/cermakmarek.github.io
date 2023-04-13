@@ -310,6 +310,9 @@ var hierarchy =
       [ "IS4.SFI.Tools.IO.ChannelStream< TSequence >", "class_i_s4_1_1_s_f_i_1_1_tools_1_1_i_o_1_1_channel_stream.html", null ],
       [ "IS4.SFI.Tools.Xml.ChannelXmlReader", "class_i_s4_1_1_s_f_i_1_1_tools_1_1_xml_1_1_channel_xml_reader.html", null ]
     ] ],
+    [ "IEqualityComparer", null, [
+      [ "IS4.SFI.Services.NodeMatchPropertiesComparer", "class_i_s4_1_1_s_f_i_1_1_services_1_1_node_match_properties_comparer.html", null ]
+    ] ],
     [ "IEquatable", null, [
       [ "IS4.SFI.Application.ComponentCollection< T >", "class_i_s4_1_1_s_f_i_1_1_application_1_1_component_collection.html", null ],
       [ "IS4.SFI.FileTools.TemporaryFile", "struct_i_s4_1_1_s_f_i_1_1_file_tools_1_1_temporary_file.html", null ],

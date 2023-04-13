@@ -212,6 +212,7 @@ var annotated_dup =
           [ "LinkedNodeFactoryExtensions", "class_i_s4_1_1_s_f_i_1_1_services_1_1_linked_node_factory_extensions.html", "class_i_s4_1_1_s_f_i_1_1_services_1_1_linked_node_factory_extensions" ],
           [ "MemoryStreamFactory", "class_i_s4_1_1_s_f_i_1_1_services_1_1_memory_stream_factory.html", "class_i_s4_1_1_s_f_i_1_1_services_1_1_memory_stream_factory" ],
           [ "NiHashedContentUriFormatter", "class_i_s4_1_1_s_f_i_1_1_services_1_1_ni_hashed_content_uri_formatter.html", "class_i_s4_1_1_s_f_i_1_1_services_1_1_ni_hashed_content_uri_formatter" ],
+          [ "NodeMatchPropertiesComparer", "class_i_s4_1_1_s_f_i_1_1_services_1_1_node_match_properties_comparer.html", "class_i_s4_1_1_s_f_i_1_1_services_1_1_node_match_properties_comparer" ],
           [ "NodeMatchPropertiesExtensions", "class_i_s4_1_1_s_f_i_1_1_services_1_1_node_match_properties_extensions.html", "class_i_s4_1_1_s_f_i_1_1_services_1_1_node_match_properties_extensions" ],
           [ "ObjectHashAlgorithm", "class_i_s4_1_1_s_f_i_1_1_services_1_1_object_hash_algorithm.html", "class_i_s4_1_1_s_f_i_1_1_services_1_1_object_hash_algorithm" ],
           [ "RootDirectoryInfo", "class_i_s4_1_1_s_f_i_1_1_services_1_1_root_directory_info.html", "class_i_s4_1_1_s_f_i_1_1_services_1_1_root_directory_info" ],

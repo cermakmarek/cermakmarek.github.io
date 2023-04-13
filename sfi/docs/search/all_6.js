@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['data_0',['data',['../struct_i_s4_1_1_s_f_i_1_1_media_analysis_1_1_audio_1_1_channel_spectrum.html#aa3de46d2e74022e5aa810c8c6b99d5aa',1,'IS4::SFI::MediaAnalysis::Audio::ChannelSpectrum']]],
-  ['data_1',['Data',['../class_i_s4_1_1_s_f_i_1_1_services_1_1_binary_format_object.html#aa20bf0bd6e598108a96bb93fcc579428',1,'IS4.SFI.Services.BinaryFormatObject.Data()'],['../interface_i_s4_1_1_s_f_i_1_1_services_1_1_i_binary_format_object.html#a35848d24dbb073368af616fa3150d963',1,'IS4.SFI.Services.IBinaryFormatObject.Data()'],['../class_i_s4_1_1_s_f_i_1_1_formats_1_1_modules_1_1_win_version_info.html#a79a1006815eb0467d187d93d3658d9de',1,'IS4.SFI.Formats.Modules.WinVersionInfo.Data()']]],
+  ['data_0',['Data',['../class_i_s4_1_1_s_f_i_1_1_services_1_1_binary_format_object.html#aa20bf0bd6e598108a96bb93fcc579428',1,'IS4.SFI.Services.BinaryFormatObject.Data()'],['../interface_i_s4_1_1_s_f_i_1_1_services_1_1_i_binary_format_object.html#a35848d24dbb073368af616fa3150d963',1,'IS4.SFI.Services.IBinaryFormatObject.Data()'],['../class_i_s4_1_1_s_f_i_1_1_formats_1_1_modules_1_1_win_version_info.html#a79a1006815eb0467d187d93d3658d9de',1,'IS4.SFI.Formats.Modules.WinVersionInfo.Data()']]],
+  ['data_1',['data',['../struct_i_s4_1_1_s_f_i_1_1_media_analysis_1_1_audio_1_1_channel_spectrum.html#aa3de46d2e74022e5aa810c8c6b99d5aa',1,'IS4::SFI::MediaAnalysis::Audio::ChannelSpectrum']]],
   ['dataanalyzer_2',['DataAnalyzer',['../class_i_s4_1_1_s_f_i_1_1_inspector.html#a03150bd46229607789f9a814c1daa253',1,'IS4::SFI::Inspector']]],
   ['dataanalyzer_2ecs_3',['DataAnalyzer.cs',['../_data_analyzer_8cs.html',1,'']]],
   ['dataanalyzertests_4',['DataAnalyzerTests',['../class_i_s4_1_1_s_f_i_1_1_tests_1_1_data_analyzer_tests.html',1,'IS4::SFI::Tests']]],
