@@ -416,7 +416,7 @@
             The implementation of <see cref="M:IS4.SFI.Formats.ModuleFormat`1.CheckHeader(System.ReadOnlySpan{System.Byte},System.Boolean,IS4.SFI.Services.IEncodingDetector)"/>
             checks the signature in the extended MZ header.
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T"><inheritdoc cref="T:IS4.SFI.Formats.IFileFormat`1" path="/typeparam[@name='T']"/></typeparam>
         </member>
         <member name="M:IS4.SFI.Formats.ModuleFormat`1.#ctor(System.String,System.String,System.String)">
             <inheritdoc/>

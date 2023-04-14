@@ -530,7 +530,7 @@
             <summary>
             Determines whether <paramref name="str"/> is a string safe for displaying or storing as text.
             </summary>
-            <param name="str"></param>
+            <param name="str">The string to check.</param>
             <returns><see langword="true"/> if the string contains unsafe characters, <see langword="false"/> otherwise.</returns>
             <remarks>
             XML 1.0 prohibits C0 control codes and discourages the use of C1, with the exception of line separators;
@@ -701,7 +701,7 @@
             Dynamically calls <see cref="M:IS4.SFI.Services.ILinkedNode.Set``2(IS4.SFI.Services.IPropertyUriFormatter{``0},``0,``1)"/>
             based on the runtime type of <paramref name="value"/>.
             </summary>
-            <typeparam name="TProp"></typeparam>
+            <typeparam name="TProp">The type of <paramref name="propertyValue"/>.</typeparam>
             <param name="node">The instance of <see cref="T:IS4.SFI.Services.ILinkedNode"/> to use.</param>
             <param name="propertyFormatter">The formatter to provide the property based on <paramref name="propertyValue"/>.</param>
             <param name="propertyValue">The value to pass to the <paramref name="propertyFormatter"/>.</param>
@@ -875,20 +875,13 @@
             <returns><see langword="false"/> if the file cannot possibly be in this format, <see langword="true"/> otherwise.</returns>
         </member>
         <member name="M:IS4.SFI.Formats.IBinaryFileFormat.CheckHeader(System.ReadOnlySpan{System.Byte},System.Boolean,IS4.SFI.Services.IEncodingDetector)">
-            <summary>
-            Determines whether a file beginning with <paramref name="header"/> could
-            be in a format represented by this instance.
-            </summary>
-            <param name="header">A collection of bytes from the beginning of the file.</param>
-            <param name="isBinary">Whether the file was detected as binary or not.</param>
-            <param name="encodingDetector">The specific instance of <see cref="T:IS4.SFI.Services.IEncodingDetector"/> used to determine the encoding.</param>
-            <returns><see langword="false"/> if the file cannot possibly be in this format, <see langword="true"/> otherwise.</returns>
+            <inheritdoc cref="M:IS4.SFI.Formats.IBinaryFileFormat.CheckHeader(System.ArraySegment{System.Byte},System.Boolean,IS4.SFI.Services.IEncodingDetector)"/>
         </member>
         <member name="M:IS4.SFI.Formats.IBinaryFileFormat.Match``2(System.IO.Stream,IS4.SFI.Formats.MatchContext,IS4.SFI.IResultFactory{``0,``1},``1)">
             <summary>
             Attempts to match this format from a file, producing an object that describes
             the media object stored in the file. The object is obtained
-            using the provided <see cref="T:IS4.SFI.IResultFactory`2"/>.
+            using <paramref name="resultFactory"/>.
             </summary>
             <typeparam name="TResult">User-specified result type passed to <paramref name="resultFactory"/>.</typeparam>
             <typeparam name="TArgs">User-specified arguments type passed to <paramref name="resultFactory"/>.</typeparam>
@@ -897,7 +890,7 @@
             <param name="resultFactory">A receiver object that is provided the result of the match, if any.</param>
             <param name="args">User-specified arguments passed to <paramref name="resultFactory"/>.</param>
             <returns>
-            The result of <see cref="M:IS4.SFI.IResultFactory`2.Invoke``1(``0,`1)"/> when given the produced object,
+            The result of invoking <paramref name="resultFactory"/> when given the produced object,
             or the default value of <typeparamref name="TResult"/> when the match isn't successful.
             </returns>
             <exception cref="T:System.Exception">
@@ -910,39 +903,16 @@
             based on binary data, producing instances of <typeparamref name="T"/>
             to describe the media object.
             </summary>
-            <typeparam name="T">
-            The type of the instances produced as a result
-            of parsing the format.
-            </typeparam>
+            <typeparam name="T"><inheritdoc cref="T:IS4.SFI.Formats.IFileFormat`1" path="/typeparam[@name='T']"/></typeparam>
         </member>
         <member name="M:IS4.SFI.Formats.IBinaryFileFormat`1.Match``2(System.IO.Stream,IS4.SFI.Formats.MatchContext,IS4.SFI.ResultFactory{`0,``0,``1},``1)">
-            <summary>
-            Attempts to match this format from a file, producing an object that describes
-            the media object stored in the file. The object is obtained
-            using the provided <see cref="T:IS4.SFI.ResultFactory`3"/>.
-            </summary>
-            <typeparam name="TResult">User-specified result type passed to <paramref name="resultFactory"/>.</typeparam>
-            <typeparam name="TArgs">User-specified arguments type passed to <paramref name="resultFactory"/>.</typeparam>
-            <param name="stream">The stream to analyze.</param>
-            <param name="context">Additional information relevant to the match.</param>
-            <param name="resultFactory">A receiver object that is provided the result of the match, if any.</param>
-            <param name="args">User-specified arguments passed to <paramref name="resultFactory"/>.</param>
-            <returns>
-            The result of <see cref="M:IS4.SFI.ResultFactory`3.Invoke(`0,`2)"/> when given the produced object,
-            or the default value of <typeparamref name="TResult"/> when the match isn't successful.
-            </returns>
-            <exception cref="T:System.Exception">
-            Any exception may be caused during the internal parsing of the format.
-            </exception>
+            <inheritdoc cref="M:IS4.SFI.Formats.IBinaryFileFormat.Match``2(System.IO.Stream,IS4.SFI.Formats.MatchContext,IS4.SFI.IResultFactory{``0,``1},``1)"/>
         </member>
         <member name="T:IS4.SFI.Formats.BinaryFileFormat`1">
             <summary>
             Provides a base implementation of <see cref="T:IS4.SFI.Formats.IBinaryFileFormat`1"/>.
             </summary>
-            <typeparam name="T">
-            The type of the instances produced as a result
-            of parsing the format.
-            </typeparam>
+            <typeparam name="T"><inheritdoc cref="T:IS4.SFI.Formats.IFileFormat`1" path="/typeparam[@name='T']"/></typeparam>
         </member>
         <member name="P:IS4.SFI.Formats.BinaryFileFormat`1.HeaderLength">
             <inheritdoc/>
@@ -1018,10 +988,7 @@
             <summary>
             Provides a base implementation of <see cref="T:IS4.SFI.Formats.IFileFormat`1"/>.
             </summary>
-            <typeparam name="T">
-            The type of the instances produced as a result
-            of parsing the format.
-            </typeparam>
+            <typeparam name="T"><inheritdoc cref="T:IS4.SFI.Formats.IFileFormat`1" path="/typeparam[@name='T']"/></typeparam>
         </member>
         <member name="P:IS4.SFI.Formats.FileFormat`1.MediaType">
             <summary>
@@ -1099,13 +1066,13 @@
             pointing at the root element. This instance
             is not expected to be modified.
             </param>
-            <returns></returns>
+            <returns><see langword="false"/> if the document cannot possibly be in this format, <see langword="true"/> otherwise.</returns>
         </member>
         <member name="M:IS4.SFI.Formats.IXmlDocumentFormat.Match``2(System.Xml.XmlReader,System.Xml.Linq.XDocumentType,IS4.SFI.Formats.MatchContext,IS4.SFI.IResultFactory{``0,``1},``1)">
             <summary>
             Attempts to match this format from an XML document, producing
             an object that describes the media object stored in the file.
-            The object is obtained using the provided <see cref="T:IS4.SFI.IResultFactory`2"/>.
+            The object is obtained using <paramref name="resultFactory"/>.
             </summary>
             <typeparam name="TResult">User-specified result type passed to <paramref name="resultFactory"/>.</typeparam>
             <typeparam name="TArgs">User-specified arguments type passed to <paramref name="resultFactory"/>.</typeparam>
@@ -1118,7 +1085,7 @@
             <param name="resultFactory">A receiver object that is provided the result of the match, if any.</param>
             <param name="args">User-specified arguments passed to <paramref name="resultFactory"/>.</param>
             <returns>
-            The result of <see cref="M:IS4.SFI.IResultFactory`2.Invoke``1(``0,`1)"/> when given the produced object,
+            The result of invoking <paramref name="resultFactory"/> when given the produced object,
             or the default value of <typeparamref name="TResult"/> when the match isn't successful.
             </returns>
             <exception cref="T:System.Exception">
@@ -1131,73 +1098,25 @@
             based on XML, producing instances of <typeparamref name="T"/>
             to describe the media object.
             </summary>
-            <typeparam name="T">
-            The type of the instances produced as a result
-            of parsing the format.
-            </typeparam>
+            <typeparam name="T"><inheritdoc cref="T:IS4.SFI.Formats.IFileFormat`1" path="/typeparam[@name='T']"/></typeparam>
         </member>
         <member name="M:IS4.SFI.Formats.IXmlDocumentFormat`1.GetPublicId(`0)">
-            <summary>
-            Returns the PUBLIC identifier of a document describing an instance of this formats.
-            </summary>
-            <param name="value">An object compatible with this format.</param>
-            <returns>A PUBLIC identifier based on <paramref name="value"/>.</returns>
-            <exception cref="T:System.ArgumentException">
-            Thrown if the argument is not compatible with the format.
-            </exception>
+            <inheritdoc cref="M:IS4.SFI.Formats.IXmlDocumentFormat.GetPublicId(System.Object)"/>
         </member>
         <member name="M:IS4.SFI.Formats.IXmlDocumentFormat`1.GetSystemId(`0)">
-            <summary>
-            Returns the SYSTEM identifier of a document describing an instance of this formats.
-            </summary>
-            <param name="value">An object compatible with this format.</param>
-            <returns>A SYSTEM identifier based on <paramref name="value"/>.</returns>
-            <exception cref="T:System.ArgumentException">
-            Thrown if the argument is not compatible with the format.
-            </exception>
+            <inheritdoc cref="M:IS4.SFI.Formats.IXmlDocumentFormat.GetSystemId(System.Object)"/>
         </member>
         <member name="M:IS4.SFI.Formats.IXmlDocumentFormat`1.GetNamespace(`0)">
-            <summary>
-            Returns the root element's namespace URI in a document describing an instance of this formats.
-            </summary>
-            <param name="value">An object compatible with this format.</param>
-            <returns>The namespace URI based on <paramref name="value"/>.</returns>
-            <exception cref="T:System.ArgumentException">
-            Thrown if the argument is not compatible with the format.
-            </exception>
+            <inheritdoc cref="M:IS4.SFI.Formats.IXmlDocumentFormat.GetNamespace(System.Object)"/>
         </member>
         <member name="M:IS4.SFI.Formats.IXmlDocumentFormat`1.Match``2(System.Xml.XmlReader,System.Xml.Linq.XDocumentType,IS4.SFI.Formats.MatchContext,IS4.SFI.ResultFactory{`0,``0,``1},``1)">
-            <summary>
-            Attempts to match this format from an XML document, producing
-            an object that describes the media object stored in the file.
-            The object is obtained using the provided <see cref="T:IS4.SFI.IResultFactory`2"/>.
-            </summary>
-            <typeparam name="TResult">User-specified result type passed to <paramref name="resultFactory"/>.</typeparam>
-            <typeparam name="TArgs">User-specified arguments type passed to <paramref name="resultFactory"/>.</typeparam>
-            <param name="reader">
-            An instance of <see cref="T:System.Xml.XmlReader"/> that can read the whole document.
-            The reader is pointed right before the root element.
-            </param>
-            <param name="docType">The DTD of the document.</param>
-            <param name="context">Additional information relevant to the match.</param>
-            <param name="resultFactory">A receiver object that is provided the result of the match, if any.</param>
-            <param name="args">User-specified arguments passed to <paramref name="resultFactory"/>.</param>
-            <returns>
-            The result of <see cref="M:IS4.SFI.IResultFactory`2.Invoke``1(``0,`1)"/> when given the produced object,
-            or the default value of <typeparamref name="TResult"/> when the match isn't successful.
-            </returns>
-            <exception cref="T:System.Exception">
-            Any exception may be caused during the internal parsing of the format.
-            </exception>
+            <inheritdoc cref="M:IS4.SFI.Formats.IXmlDocumentFormat.Match``2(System.Xml.XmlReader,System.Xml.Linq.XDocumentType,IS4.SFI.Formats.MatchContext,IS4.SFI.IResultFactory{``0,``1},``1)"/>
         </member>
         <member name="T:IS4.SFI.Formats.XmlDocumentFormat`1">
             <summary>
             Provides a base implementation of <see cref="T:IS4.SFI.Formats.IXmlDocumentFormat`1"/>.
             </summary>
-            <typeparam name="T">
-            The type of the instances produced as a result
-            of parsing the format.
-            </typeparam>
+            <typeparam name="T"><inheritdoc cref="T:IS4.SFI.Formats.IFileFormat`1" path="/typeparam[@name='T']"/></typeparam>
         </member>
         <member name="P:IS4.SFI.Formats.XmlDocumentFormat`1.PublicId">
             <summary>
@@ -1293,7 +1212,7 @@
             An extension of <see cref="T:IS4.SFI.Formats.BinaryFileFormat`1"/> for formats identified
             using sequence of bytes at the start of the data, i.e. a signature.
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T"><inheritdoc cref="T:IS4.SFI.Formats.IFileFormat`1" path="/typeparam[@name='T']"/></typeparam>
         </member>
         <member name="M:IS4.SFI.Formats.SignatureFormat`1.#ctor(System.Int32,System.String,System.String)">
             <summary>
@@ -1578,7 +1497,9 @@
             Opens the list of resources in the module and returns them
             as a collection of <see cref="T:IS4.SFI.Formats.IModuleResource"/>.
             </summary>
-            <returns></returns>
+            <returns>
+            A sequence of <see cref="T:IS4.SFI.Formats.IModuleResource"/> instances representing the individual resources.
+            </returns>
         </member>
         <member name="P:IS4.SFI.Formats.IModule.Signature">
             <summary>
@@ -1736,7 +1657,7 @@
             implementations of <see cref="M:System.Object.Equals(System.Object)"/> or
             <see cref="M:System.Object.GetHashCode"/>.
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">The type of the compared instances.</typeparam>
         </member>
         <member name="F:IS4.SFI.ReferenceEqualityComparer`1.Default">
             <summary>
@@ -2861,12 +2782,7 @@
             <returns>The bytes of the hash.</returns>
         </member>
         <member name="M:IS4.SFI.Services.IDataHashAlgorithm.ComputeHash(System.Byte[],IS4.SFI.Services.IPersistentKey)">
-            <summary>
-            Computes the value of the hash from a byte buffer.
-            </summary>
-            <param name="buffer">The array of bytes to compute the hash from.</param>
-            <param name="key">The <see cref="T:IS4.SFI.Services.IPersistentKey"/> identifying the data, if needed for caching.</param>
-            <returns>The bytes of the hash.</returns>
+            <inheritdoc cref="M:IS4.SFI.Services.IDataHashAlgorithm.ComputeHash(System.Byte[],System.Int32,System.Int32,IS4.SFI.Services.IPersistentKey)"/>
         </member>
         <member name="M:IS4.SFI.Services.IDataHashAlgorithm.ComputeHash(System.Byte[],System.Int32,System.Int32,IS4.SFI.Services.IPersistentKey)">
             <summary>
@@ -2877,7 +2793,6 @@
             <param name="count">The number of bytes to read from the array.</param>
             <param name="key">The <see cref="T:IS4.SFI.Services.IPersistentKey"/> identifying the data, if needed for caching.</param>
             <returns>The bytes of the hash.</returns>
-            <returns></returns>
         </member>
         <member name="M:IS4.SFI.Services.IDataHashAlgorithm.ComputeHash(System.ArraySegment{System.Byte},IS4.SFI.Services.IPersistentKey)">
             <summary>
@@ -3792,7 +3707,7 @@
         </member>
         <member name="T:IS4.SFI.Services.INodeMatchProperties">
             <summary>
-            Contains properties relevant for saving a file as a result of <see cref="!:ILinkedNode.Match(out INodeMatchProperties)"/>,
+            Contains properties relevant for saving a file as a result of <see cref="M:IS4.SFI.Services.ILinkedNode.Match"/>,
             such as through <see cref="T:IS4.SFI.Services.OutputFileDelegate"/>. Additional properties can
             be retrieved via <see cref="M:System.ComponentModel.TypeDescriptor.GetProperties(System.Object)"/>.
             </summary>
@@ -3834,6 +3749,30 @@
             </summary>
             <param name="properties">The <see cref="T:IS4.SFI.Services.INodeMatchProperties"/> instance to use.</param>
             <returns>A sequence of pairs storing all properties of the instance.</returns>
+        </member>
+        <member name="M:IS4.SFI.Services.NodeMatchPropertiesExtensions.GetPropertyValues(IS4.SFI.Services.INodeMatchProperties)">
+            <summary>
+            Retrieves the collection of all properties and their values as pairs.
+            </summary>
+            <param name="properties">The <see cref="T:IS4.SFI.Services.INodeMatchProperties"/> instance to use.</param>
+            <returns>A sequence of pairs storing all properties of the instance and their values.</returns>
+        </member>
+        <member name="T:IS4.SFI.Services.NodeMatchPropertiesComparer">
+            <summary>
+            An implementation of <see cref="T:System.Collections.Generic.IEqualityComparer`1"/> that compares
+            instances of <see cref="T:IS4.SFI.Services.INodeMatchProperties"/> by value.
+            </summary>
+        </member>
+        <member name="F:IS4.SFI.Services.NodeMatchPropertiesComparer.Instance">
+            <summary>
+            The default instance of the comparer.
+            </summary>
+        </member>
+        <member name="M:IS4.SFI.Services.NodeMatchPropertiesComparer.Equals(IS4.SFI.Services.INodeMatchProperties,IS4.SFI.Services.INodeMatchProperties)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IS4.SFI.Services.NodeMatchPropertiesComparer.GetHashCode(IS4.SFI.Services.INodeMatchProperties)">
+            <inheritdoc/>
         </member>
         <member name="T:IS4.SFI.Services.IPersistentKey">
             <summary>
@@ -4229,7 +4168,14 @@
             Matches a letter I followed a capital letter, denoting interfaces by convention.
             </summary>
         </member>
-        <member name="M:IS4.SFI.TextTools.FakeTypeNameCache`1.CommonPrefix(System.String,System.String)">
+        <member name="M:IS4.SFI.TextTools.GetExportedTypes(System.Reflection.Assembly)">
+            <summary>
+            Retrieves the collection of exported types in an assembly, with caching.
+            </summary>
+            <param name="asm">The <see cref="T:System.Reflection.Assembly"/> instance to use.</param>
+            <returns>A collection of <see cref="P:System.Reflection.Assembly.ExportedTypes"/>.</returns>
+        </member>
+        <member name="M:IS4.SFI.TextTools.CommonPrefix(System.String,System.String)">
             <summary>
             Returns the length of the common prefix of <paramref name="a"/> and <paramref name="b"/>.
             </summary>
@@ -4258,6 +4204,13 @@
             <returns>A MIME type in the form of "application/x.exec.{<paramref name="interpreter"/>}"
             (converted to lowercase).
             </returns>
+        </member>
+        <member name="M:IS4.SFI.TextTools.FormatMimeParameter(System.String)">
+            <summary>
+            Formats the value of a MIME parameter.
+            </summary>
+            <param name="value">The value to format.</param>
+            <returns>Either <paramref name="value"/> unchanged, or escaped and wrapped in quotes.</returns>
         </member>
         <member name="M:IS4.SFI.TextTools.GetUserFriendlyName``1(``0)">
             <summary>
@@ -4683,7 +4636,7 @@
             by calling <see cref="M:System.Buffers.ArrayPool`1.Rent(System.Int32)"/>, implementing
             <see cref="T:System.IDisposable"/> to automatically return the array to the pool.
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">The element type of the array.</typeparam>
         </member>
         <member name="M:IS4.SFI.Tools.Extensions.ArrayPoolLease`1.Dispose">
             <summary>
@@ -5144,7 +5097,7 @@
             Creates a new instance of <typeparamref name="T"/> and
             initializes it for new hashing.
             </summary>
-            <returns></returns>
+            <returns>A newly initialized instance of <typeparamref name="T"/>.</returns>
         </member>
         <member name="M:IS4.SFI.Tools.StreamDataHash`1.Finalize(`0@)">
             <summary>

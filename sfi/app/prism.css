@@ -1,0 +1,116 @@
+/* PrismJS 1.23.0
+https://prismjs.com/download.html#themes=prism&languages=sparql+turtle */
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code {
+  color: #999;
+}  
+ 
+@keyframes anim1 {
+  from { color: inherit; }
+  to { color: #888; }
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #888;
+  animation: anim1 1s ease-in-out;
+}
+ 
+@keyframes anim2 {
+  from { color: inherit; }
+  to { color: #AAA; }
+}
+
+.token.punctuation {
+	color: #AAA;
+  animation: anim2 1s ease-in-out;
+}
+ 
+@keyframes anim3 {
+  from { opacity: inherit; }
+  to { opacity: 0.9; }
+}
+
+.token.prefix,
+.token.namespace {
+	opacity: 0.9;
+  animation: anim3 1s ease-in-out;
+}
+ 
+@keyframes anim4 {
+  from { color: inherit; }
+  to { color: #0BB; }
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #0BB;
+  animation: anim4 1s ease-in-out;
+}
+ 
+@keyframes anim5 {
+  from { color: inherit; }
+  to { color: #0B8; }
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #0B8;
+  animation: anim5 1s ease-in-out;
+}
+ 
+@keyframes anim6 {
+  from { color: inherit; }
+  to { color: #B50; }
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #B50;
+  animation: anim6 1s ease-in-out;
+}
+ 
+@keyframes anim7 {
+  from { color: inherit; }
+  to { color: #BB0; }
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted,
+.token.function,
+.token.class-name {
+	color: #BB0;
+  animation: anim7 1s ease-in-out;
+}
+ 
+@keyframes anim8 {
+  from { color: inherit; }
+  to { color: #0AF; }
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #0AF;
+  animation: anim8 1s ease-in-out;
+}

@@ -643,7 +643,7 @@
         </member>
         <member name="P:IS4.SFI.NodeQueryTester.Queries">
             <summary>
-            The collection of queries to use when <see cref="!:Match(INode, out INodeMatchProperties)"/>
+            The collection of queries to use when <see cref="M:IS4.SFI.NodeQueryTester.Match(VDS.RDF.INode)"/>
             is called.
             </summary>
         </member>

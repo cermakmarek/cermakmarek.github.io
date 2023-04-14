@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Semantic File Inspector Documentation</title>
+<link href="https://is4.site/styles/terminal.css?theme=1&year=2022" rel="stylesheet" />
+<link rel="stylesheet" href="prism.css">
+</head>
+
+<body>
+<h1>Documentation (<a href=".">back</a>)</h1>
+
+<p>The usage of the application and the supported options can be displayed by passing <code><mark>-?</mark></code> as the command-line option.</p>
+
+<pre>
+Usage: (describe|search|list) [options] input... output
+</pre>
+
+<p>The application operates in three modes: <code><mark>describe</mark></code>, <code><mark>search</mark></code>, and <code><mark>list</mark></code>.
+In <code><mark>list</mark></code>, it only displays a list of supported components and their properties,
+which can be used to configure them further.
+In <code><mark>describe</mark></code>, the application loads a collection of input files and describes them using RDF, saving the output in a desired RDF serialization format to the last file specified.
+In <code><mark>search</mark></code>, the application requires a list of SPARQL queries in addition to the input files and evaluates them on the RDF descriptions, saving the output in a desired SPARQL results serialization format to the last file specified.</p>
+
+<p>Input files support wildcard characters like <code><mark>?</mark></code> and <code><mark>*</mark></code> to select multiple files at once.
+Additionally, <code><mark>-</mark></code> may be used as the output file, in which case the RDF data is written to the log.
+It is also possible to specify <code><mark>NUL</mark></code> (case-insensitive) or <code><mark>/dev/null</mark></code> as the output, which discards any RDF data.</p>
+
+<p>Additional arguments given to the application must be passed as options before the input files, beginning with <code><mark>-</mark></code> for the short form or <code><mark>--</mark></code> for the long form:</p>
+
+<table>
+<thead>
+<tr><th>Short form</th><th>Long form</th><th>Argument</th><th>Description</th></tr>
+</thead> 
+<tbody>
+ <tr>
+ <th><code><mark>q</mark></code> </th><th> <code><mark>quiet</mark></code> </th><td> </td><td> No logging messages, normally sent to the standard error, are produced.
+ </tr><tr>
+ <th><code><mark>i</mark></code> </th><th> <code><mark>include</mark></code> </th><td> pattern </td><td> From the previously excluded components, includes those matching the pattern.
+ </tr><tr>
+ <th><code><mark>e</mark></code> </th><th> <code><mark>exclude</mark></code> </th><td> pattern </td><td> From the previously included components, excludes those matching the pattern.
+ </tr><tr>
+ <th><code><mark>f</mark></code> </th><th> <code><mark>format</mark></code> </th><td> extension or MIME type </td><td> Sets the RDF serialization format of the output (ttl, jsonld, rdf etc.) in case of <code><mark>describe</mark></code>, or the SPARQL results format in case of <code><mark>search</mark></code>.
+ Also deduced from the output file extension.
+ </tr><tr>
+ <th><code><mark>h</mark></code> </th><th> <code><mark>hash</mark></code> </th><td> pattern </td><td> Set the primary data hash algorithm.
+ The algorithm is also included as a component.
+ Only a sufficiently collision-resistant hash algorithm should be used.
+ </tr><tr>
+ <th><code><mark>c</mark></code> </th><th> <code><mark>compress</mark></code> </th><td>  </td><td> Enables gzip compression for the output.
+ </tr><tr>
+ <th><code><mark>m</mark></code> </th><th> <code><mark>metadata</mark></code> </th><td>  </td><td> Adds annotation metadata to the output.
+ </tr><tr>
+ <th><code><mark>d</mark></code> </th><th> <code><mark>data-only</mark></code> </th><td>  </td><td> Only treats the input files as plain data, without file information.
+ </tr><tr>
+ <th><code><mark>u</mark></code> </th><th> <code><mark>ugly</mark></code> </th><td>  </td><td> Use compact, non-pretty mode of RDF output writing.
+ </tr><tr>
+ <th><code><mark>b</mark></code> </th><th> <code><mark>buffered</mark></code> </th><td>  </td><td> Buffer the RDF triples in memory before writing them to the output all at once.
+ </tr><tr>
+ <th><code><mark>r</mark></code> </th><th> <code><mark>root</mark></code> </th><td> URI </td><td> Sets the URI prefix that is used for unique entities which do not have a stable identifier.
+ Without this option, only blank nodes are used.
+ A prefix like <code><mark>urn:uuid:</mark></code> or a Skolem IRI prefix, under <code><mark>/.well-known/genid/</mark></code>, is recommended.
+ </tr><tr>
+ <th><code><mark>s</mark></code> </th><th> <code><mark>sparql-query</mark></code></th><td> file </td><td> The given file is executed as a SPARQL query, in case of <code><mark>describe</mark></code> for selecting files, or in case of <code><mark>search</mark></code> to query for information from the description.
+ </tr>
+ </tbody>
+</table>
+
+<h3>Examples</h3>
+
+<dl>
+  <dt><code><mark>describe dir/* out.ttl</mark></code></dt><dd>
+  Describes all files in <code><mark>dir</mark></code> using the default components, and saves the RDF output to <code><mark>out.ttl</mark></code>.
+  
+  </dd><dt><code><mark>describe -d -h sha1 dir out.ttl</mark></code></dt><dd>
+  The same as above, but only loads the files in the directory as data (<code><mark>-d</mark></code>), without storing their names or other metadata.
+  In addition to that, the SHA-1 hash algorithm is used to produce <code><mark>ni:</mark></code> URIs for content.
+  
+  </dd><dt><code><mark>describe -f rdf dir -</mark></code></dt><dd>
+  As above, but writes the RDF description as RDF/XML to the standard output.
+  
+  </dd><dt><code><mark>describe -b -f jsonld dir -</mark></code></dt><dd>
+  Writes the RDF description in JSON-LD instead.
+  This requires buffering the output (<code><mark>-b</mark></code>).
+  
+  </dd><dt><code><mark>describe -r urn:uuid: dir -</mark></code></dt><dd>
+  Does not use blank nodes to identify entities, instead using URIs starting with <code><mark>urn:uuid:</mark></code>.
+  
+  </dd><dt><code><mark>describe -x *-hash:* -i data-hash:sha1 dir -</mark></code></dt><dd>
+  Does not use any of the supported hash algorithms, with the exception of SHA-1, to describe data.
+  </dd>
+</dl>
+
+<h2>Configuring components</h2>
+
+<p>Various configurable objects, understood by the application, such as analyzers, file formats, or hash algorithms, are collectively stored in <i>component collections</i> and can be included or excluded from them via the <code><mark>-i</mark></code> and <code><mark>-x</mark></code> options.</p>
+
+<p>When present in a collection, a component receives its <i>compound identifier</i>, formed from the name of the collection, and the base name of the component, joined using <code><mark>:</mark></code>.
+For example, components in the analyzer collection are identified using the <code><mark>analyzer:</mark></code> prefix, and can be collectively removed using <code><mark>-x analyzer:*</mark></code>.</p>
+
+<p>It is possible a single component may be included in multiple collections at once, for example data hash algorithms may be used by the data analyzer for hashing arbitrary bytes, using the <code><mark>data-hash:</mark></code> prefix, or by the image analyzer for analyzing raw pixel data, using the <code><mark>pixel-hash:</mark></code> prefix.
+Using the proper pattern, a particular hash algorithm may be configured to be present in only one collection, both or none of them.</p>
+
+<p><strong>Analyzers</strong> form their base name from the supported type of analyzed objects, for example the analyzer of executable modules has the identifier <code><mark>analyzer:module</mark></code>.
+If the type is located in a foreign assembly, the name of the assembly is also used as a part of the base name, for example the analyzer of tagged files from the TagLibSharp library has the identifier <code><mark>analyzer:tag-lib-sharp.file</mark></code>.</p>
+
+<p><strong>Formats</strong> use the MIME type of the recognized files as their base names, for example the identifier of the XML format is <code><mark>data-format:application/xml</mark></code>.
+If the MIME type of the format is not known, or if the format does not represent a single concrete format, the special unregistered MIME type prefix <code><mark>application/x.obj.</mark></code> is used, followed by the base name of the analyzer that would recognize this object, for example in <code><mark>data-format:application/x.obj.image</mark></code>.</p>
+
+<p>The base names of other components do not follow any particular pattern.</p>
+
+<p>Some components may have configurable properties that can be browsed by running the application in the <code><mark>list</mark></code> mode.
+The identifier of a component's property is formed by joining the compound identifier of the component and the name of the property by <code><mark>:</mark></code>, and can be used as an option by prefixing it with <code><mark>--</mark></code>.
+For example, the estimate of the base size of a single triple in bytes in a triple store can be configured using <code><mark>--analyzer:stream-factory:triple-size-estimate</mark></code>.</p>
+
+<h2>Available components</h2>
+
+<p>This is the list of available components and their properties:</p>
+
+<dl>
+<dt><code><mark>analyzer:file-node-info</mark></code></dt><dd>
+This is the file analyzer, accepting arbitrary files and directories.
+This component holds the collection of file hash algorithms, prefixed <code><mark>file-hash:</mark></code>.
+
+</dd><dt><code><mark>analyzer:stream-factory</mark></code></dt><dd>
+This is the data analyzer, accepting any source of data or sequence of bytes.
+This component holds the collection of binary formats, prefixed <code><mark>data-format:</mark></code>, and data hash algorithms, prefixed <code><mark>data-hash:</mark></code>.
+
+</dd><dt><code><mark>analyzer:stream-factory:file-size-to-write-to-disk</mark></code></dt><dd>
+The minimum size at which the data is written to a temporary file on disk instead of being stored in memory.
+
+</dd><dt><code><mark>analyzer:stream-factory:min-data-length-to-store</mark></code></dt><dd>
+The minimum size at which to consider storing data directly in the URI, instead of using one of its hashes to identify it.
+
+</dd><dt><code><mark>analyzer:stream-factory:triple-size-estimate</mark></code></dt><dd>
+An estimate of the size of a triple in a data store, used to evaluate whether describing the data using hashes would be more efficient than storing it in the URI.
+
+</dd><dt><code><mark>analyzer:stream-factory:max-depth-for-formats</mark></code></dt><dd>
+The maximum depth the data is allowed to be as an entity in a hierarchy in order to attempt to analyze formats.
+
+</dd><dt><code><mark>analyzer:data-object</mark></code></dt><dd>
+This is the data object analyzer.
+Excluding this component will disable describing data, but individual media objects will still be analyzed.
+
+</dd><dt><code><mark>analyzer:data-object:label-size-suffix-digits</mark></code></dt><dd>
+The number of decimal digits used to format the data size in the label.
+
+</dd><dt><code><mark>analyzer:format-object</mark></code></dt><dd>
+This is the format object analyzer.
+Excluding this component will prevent any format analysis.
+
+</dd><dt><code><mark>analyzer:format-object:label-size-suffix-digits</mark></code></dt><dd>
+The number of decimal digits used to format the data size in the label.
+
+</dd><dt><code><mark>analyzer:xml-reader</mark></code></dt><dd>
+The analyzer of XML documents.
+This component holds the collection of XML formats, prefixed <code><mark>xml-format:</mark></code>.
+
+</dd><dt><code><mark>analyzer:x509-certificate</mark></code></dt><dd>
+The analyzer of X.509 certificates.
+
+</dd><dt><code><mark>analyzer:x509-certificate:describe-extensions</mark></code></dt><dd>
+Whether to use the certificate's extensions to provide an additional description.
+
+</dd><dt><code><mark>analyzer:read-only-list.metadata-extractor.directory</mark></code></dt><dd>
+The analyzer of metadata directories, produced by MetadataExtractor from image files.
+
+</dd><dt><code><mark>analyzer:metadata-extractor.exif-directory-base</mark></code></dt><dd>
+The analyzer of EXIF metadata in MetadataExtractor directories.
+
+</dd><dt><code><mark>analyzer:metadata-extractor.xmp-directory</mark></code></dt><dd>
+The analyzer of XMP metadata in MetadataExtractor directories.
+
+</dd><dt><code><mark>analyzer:tag-lib-sharp.file</mark></code></dt><dd>
+The analyzer of TagLibSharp files, as containers of tags.
+
+</dd><dt><code><mark>analyzer:tag-lib-sharp.xmp-tag</mark></code></dt><dd>
+The analyzer of XMP TagLibSharp tags.
+
+</dd><dt><code><mark>analyzer:svg.svg-document</mark></code></dt><dd>
+The analyzer of SVG documents from SVG.NET.
+
+</dd><dt><code><mark>analyzer:swf-dot-net.io.swf</mark></code></dt><dd>
+The analyer of Shockwave Flash animations from SwfDotNet.IO.
+
+</dd><dt><code><mark>analyzer:npoi.poi-document</mark></code></dt><dd>
+The analyzer of OLE-based documents from NPOI.
+
+</dd><dt><code><mark>analyzer:npoi.ooxml.poixml-document</mark></code></dt><dd>
+The analyzer of OOXML-based documents from NPOI.
+
+</dd><dt><code><mark>analyzer:pdf-sharp-core.pdf-document</mark></code></dt><dd>
+The analyzer of PDF documents from PdfSharpCore.
+
+</dd><dt><code><mark>analyzer:html-agility-pack.html-document</mark></code></dt><dd>
+The analyzer of HTML documents from the Html Agility Pack.
+
+</dd><dt><code><mark>analyzer:archive-file</mark></code></dt><dd>
+The analyzer of whole archives from SharpCompress.
+
+</dd><dt><code><mark>analyzer:archive-reader</mark></code></dt><dd>
+The analyzer of archives from SharpCompress, read sequentially.
+
+</dd><dt><code><mark>analyzer:cabinet-archive</mark></code></dt><dd>
+The analyzer of Cabinet archives.
+The analyzed archive is wrapped and handled to <code><mark>analyzer:archive-reader</mark></code>.
+
+</dd><dt><code><mark>analyzer:disc-utils.core.file-system</mark></code></dt><dd>
+The analyzer of file systems from DiscUtils.
+
+</dd><dt><code><mark>analyzer:module</mark></code></dt><dd>
+The analyzer of Windows executable or resource modules.
+
+</dd><dt><code><mark>analyzer:win-version-info</mark></code></dt><dd>
+The analyzer of Windows version resources, in the <code><mark>VS_VERSIONINFO</mark></code> format}.
+
+</dd><dt><code><mark>analyzer:dos-module</mark></code></dt><dd>
+The analyzer of DOS executables, using Aeon to execute them.
+
+</dd><dt><code><mark>analyzer:dos-module:emulate</mark></code></dt><dd>
+Whether to attempt to run the executable to obtain additional data.
+
+</dd><dt><code><mark>analyzer:dos-module:console-encoding-name</mark></code></dt><dd>
+The encoding used to decode texts produced by the module.
+
+</dd><dt><code><mark>analyzer:dos-module:instruction-step</mark></code></dt><dd>
+The number of instructions to emulate in each step.
+
+</dd><dt><code><mark>analyzer:dos-module:instruction-limit</mark></code></dt><dd>
+The limit on the total number of instructions after which emulation is stopped.
+
+</dd><dt><code><mark>analyzer:delphi-object</mark></code></dt><dd>
+The analyzer of Delphi DFM objects, stored as resources in executables.
+
+</dd><dt><code><mark>analyzer:open-mcdf.compound-file</mark></code></dt><dd>
+The analyzer of OLE compound files from OpenMcdf.
+
+</dd><dt><code><mark>analyzer:package-description</mark></code></dt><dd>
+The analyzer of packages using the <code><mark>FILE_ID.DIZ</mark></code> file for description.
+
+</dd><dt><code><mark>analyzer:rdf-xml-analyzer.document</mark></code></dt><dd>
+The analyzer of RDF/XML documents.
+
+</dd><dt><code><mark>analyzer:async-enumerable.toimik.warc-protocol.record</mark></code></dt><dd>
+The analyzer of WARC files from WarcProtocol.
+
+</dd><dt><code><mark>data-format:application/x-delphi-form:default-encoding-name</mark></code></dt><dd>
+The encoding used to read strings.
+
+</dd><dt><code><mark>data-format:text/html:default-encoding-name</mark></code></dt><dd>
+The encoding chosen for HTML by default.
+
+</dd><dt><code><mark>data-hash:md5</mark></code></dt><dd>
+The MD5 hash algorithm.
+
+</dd><dt><code><mark>data-hash:sha1</mark></code></dt><dd>
+The SHA-1 hash algorithm.
+
+</dd><dt><code><mark>data-hash:sha256</mark></code></dt><dd>
+The SHA-256 hash algorithm.
+
+</dd><dt><code><mark>data-hash:sha384</mark></code></dt><dd>
+The SHA-384 hash algorithm.
+
+</dd><dt><code><mark>data-hash:sha512</mark></code></dt><dd>
+The SHA-512 hash algorithm.
+
+</dd><dt><code><mark>data-hash:bsha1256</mark></code></dt><dd>
+A variable-length hash algorithm producing SHA-1 hashes from 256 KiB-long chunks of the hashed data.
+
+</dd><dt><code><mark>data-hash:blake3</mark></code></dt><dd>
+The BLAKE3 hash, implemented by Blake3.NET.
+
+</dd><dt><code><mark>data-hash:crc32</mark></code></dt><dd>
+The CRC32 checksum algorithm.
+
+</dd><dt><code><mark>data-hash:crc64</mark></code></dt><dd>
+The CRC64 checksum algorithm.
+
+</dd><dt><code><mark>data-hash:xxh32</mark></code></dt><dd>
+The xxHash-32 checksum algorithm.
+
+</dd><dt><code><mark>data-hash:xxh64</mark></code></dt><dd>
+The xxHash-64 checksum algorithm.
+
+</dd><dt><code><mark>image-hash:dhash</mark></code></dt><dd>
+A dHash low-frequency image hash algorithm.
+
+</dd><dt><code><mark>file-hash:btih</mark></code></dt><dd>
+The BitTorrent Info Hash, using BencodeNET.
+
+</dd><dt><code><mark>file-hash:btih:block-size</mark></code></dt><dd>
+The size of the individual file chunks in bytes, 256 KiB by default.
+</dd></dl>
+
+<p>Furthermore, there are also components for generally recognized formats accepted by the analyzers.</p>
+
+<h2>Examples</h2>
+
+<dl>
+  <dt><code><mark>-x *-format:* -i *-format:image/*</mark></code></dt><dd>
+  Excludes all file formats from the list of components, but keeps specific image formats.
+
+  </dd><dt><code><mark>-x * -i analyzer:stream-factory -i analyzer:data-object</mark></code></dt><dd>
+  Only allows for the analysis of actual data, not files.
+
+  </dd><dt><code><mark>--analyzer:stream-factory:max-depth-for-formats ""</mark></code></dt><dd>
+  Sets this property value to null, disabling depth checks.</dd>
+</dl>
+
+<h2>Using SPARQL</h2>
+
+<p>Using the <code><mark>--sparql-query</mark></code> option, it is possible to execute custom SPARQL queries during the process, and match various entities handled by the analyzers.</p>
+
+<p>Each query is executed at various points during the analysis.
+The data available to the query differs based on the presence of the <code><mark>--buffered</mark></code> option: if the option is present, the query operates on the whole graph, while if the option is not present, only a small section of the data, usually enough to describe a single entity, is used.</p>
+
+<h2>Search</h2>
+
+<p>In the <code><mark>search</mark></code> mode, the <code><mark>--sparql-query</mark></code> option should point to a <code><mark>SELECT</mark></code> or <code><mark>ASK</mark></code> query.
+When a query is evaluated, its results are added to an internal storage, which is serialized to the output file when the process stops.</p>
+
+<p>The evaluation of a query in this mode may also stop the process prematurely if one of these conditions succeeds:</p>
+
+<ul>
+  <li> The query uses <code><mark>ASK</mark></code>, and its result is determined to be <code><mark>true</mark></code>.</li>
+  <li> The query uses <code><mark>LIMIT</mark></code>, and the number of results exceeds the limit.
+  The process will be stopped in this case only if there are no other queries that may yet produce results, such as queries without <code><mark>LIMIT</mark></code>.</li>
+</ul>
+
+<h3>An example ASK query determining the presence of a PNG image</h3>
+
+<pre><code class="language-sparql">PREFIX schema: &lt;http://schema.org/&gt;
+
+ASK WHERE {
+  [] schema:encodingFormat &lt;https://w3id.org/uri4uri/mime/image/png&gt; .
+}</code></pre>
+
+<h3>An example SEARCH query that retrieves the names of image files and their dimensions</h3>
+
+<pre><code class="language-sparql">PREFIX nfo: &lt;http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#&gt;
+PREFIX nie: &lt;http://www.semanticdesktop.org/ontologies/2007/01/19/nie#&gt;
+PREFIX dcterms: &lt;http://purl.org/dc/terms/&gt;
+PREFIX schema: &lt;http://schema.org/&gt;
+
+SELECT DISTINCT ?name ?w ?h
+WHERE {
+  [
+    nfo:fileName ?name ;
+    nie:interpretedAs/dcterms:hasFormat [
+      a schema:ImageObject ;
+      nfo:width ?w ;
+      nfo:height ?h
+    ]
+  ] .
+}</code></pre>
+
+<h2>File extraction</h2>
+
+<p>In the <code><mark>describe</mark></code> mode, the <code><mark>--sparql-query</mark></code> option should point to a <code><mark>SELECT</mark></code> query, which will be used to mark entities that should be matched and extracted if they are backed by binary data. The query should have a variable <code><mark>?node</mark></code>, which is compared against the node representing the currently analyzed entity, extracting it as a file if the nodes are equal.</p>
+
+<p>The name of the file can be determined by assigning the <code><mark>?path_format</mark></code> variable in the query, which has the default value <code><mark>"${name</mark></code>${extension}"}.
+Other properties related to the file may be substituted in <code><mark>?path_format</mark></code>, including <code><mark>${media_type}</mark></code> or <code><mark>${size}</mark></code>.</p>
+
+<h3>An example query that matches all entities; extracting them to the ”extracted” folder according to their name and extension</h3>
+
+<pre><code class="language-sparql">SELECT ?node ?path_format
+WHERE {
+  ?node ?p ?o .
+  BIND("extracted/${name}${extension}" AS ?path_format)
+}</code></pre>
+
+<h3>An example query that matches all 256x256 images</h3>
+
+<pre><code class="language-sparql">PREFIX nfo: &lt;http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#&gt;
+PREFIX dcterms: &lt;http://purl.org/dc/terms/&gt;
+PREFIX schema: &lt;http://schema.org/&gt;
+
+SELECT DISTINCT ?node
+WHERE {
+  ?node dcterms:hasFormat [
+    a schema:ImageObject ;
+    nfo:width 256 ;
+    nfo:height 256
+  ]
+}</code></pre>
+
+<script src="prism.js"></script>
+</body>
+</html>
