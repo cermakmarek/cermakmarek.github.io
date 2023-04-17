@@ -4205,13 +4205,6 @@
             (converted to lowercase).
             </returns>
         </member>
-        <member name="M:IS4.SFI.TextTools.FormatMimeParameter(System.String)">
-            <summary>
-            Formats the value of a MIME parameter.
-            </summary>
-            <param name="value">The value to format.</param>
-            <returns>Either <paramref name="value"/> unchanged, or escaped and wrapped in quotes.</returns>
-        </member>
         <member name="M:IS4.SFI.TextTools.GetUserFriendlyName``1(``0)">
             <summary>
             Returns a user-friendly string representation of an object.
