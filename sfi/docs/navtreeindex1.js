@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"_i_hash_algorithm_8cs.html#a8cb362ac948c042dce06378155b163f0a92d8d370cc3b4e9c0d53134bb44f1636":[2,0,0,0,3,10,8,1],
 "_i_hash_algorithm_8cs.html#a8cb362ac948c042dce06378155b163f0a937504f318f04eaf0f1d701df4c4d7f3":[2,0,0,0,3,10,8,4],
 "_i_hash_algorithm_8cs_source.html":[2,0,0,0,3,10],
 "_i_hashed_content_uri_formatter_8cs.html":[2,0,0,0,3,11],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "_uri_list_format_8cs_source.html":[2,0,0,7,5],
 "_uri_tools_8cs.html":[2,0,0,0,19],
 "_uri_tools_8cs_source.html":[2,0,0,0,19],
-"_uri_tools_tests_8cs.html":[2,0,0,8,1,8],
-"_uri_tools_tests_8cs_source.html":[2,0,0,8,1,8]
+"_uri_tools_tests_8cs.html":[2,0,0,8,1,8]
 };

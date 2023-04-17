@@ -62,8 +62,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_accessories_formats_8cs.html",
-"_i_hash_algorithm_8cs.html#a8cb362ac948c042dce06378155b163f0a937504f318f04eaf0f1d701df4c4d7f3",
-"_value_uri_8cs.html",
+"_i_hash_algorithm_8cs.html#a8cb362ac948c042dce06378155b163f0a92d8d370cc3b4e9c0d53134bb44f1636",
+"_uri_tools_tests_8cs_source.html",
 "class_i_s4_1_1_s_f_i_1_1_analyzers_1_1_ole_storage_analyzer.html#a492fb0c61651de7d11c4e7412fc67266",
 "class_i_s4_1_1_s_f_i_1_1_command_application.html#a24550906c4a742d20e1ff0468b46ccd6",
 "class_i_s4_1_1_s_f_i_1_1_formats_1_1_archives_1_1_archive_adapter.html#ab177262c83b8edc3e4ea2b055f94a46f",
@@ -80,7 +80,7 @@ var NAVTREEINDEX =
 "class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_common.html",
 "class_i_s4_1_1_s_f_i_1_1_vocabulary_1_1_properties.html#a7a8004fd9e90a0264c03d31da9d1bf1b",
 "class_i_s4_1_1_s_f_i_1_1_web_app_1_1_blob_array_stream.html#aabae52df297e9903af5e03bbf9899b24",
-"functions_vars.html",
+"functions_v.html",
 "interface_i_s4_1_1_s_f_i_1_1_services_1_1_i_drive_info.html#abc77eb6f3edf3afa4c99e0048281792e",
 "interface_i_s4_1_1_s_f_i_1_1_tags_1_1_i_image_tag.html#a123fa4d9a01c45e4c393ceedeb4f9846",
 "struct_i_s4_1_1_s_f_i_1_1_tools_1_1_extensions_1_1_array_pool_lease.html"
