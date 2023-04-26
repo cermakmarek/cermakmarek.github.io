@@ -4,14 +4,14 @@
 <title>Example SPARQL queries</title>
 <meta charset="utf-8">
 <link href="https://is4.site/styles/terminal.css?theme=1&year=0" rel="stylesheet">
+<link rel="stylesheet" href="app/prism.css">
 </head>
 <body>
 <h1>Example SPARQL queries</h2>
 <p><a href="https://archive.data.is4.site/sparql">SPARQL endpoint</a>, graph IDs: <code>id:65948b27-93be-4ace-9091-f2272525a6cd</code> (Windows 10), <code>id:b45785a7-e8bf-4428-8996-14caec7eaaed</code> (Windows 11).</p>
 <p>Clicking on any of the query titles will send it to the endpoint.</p>
 <h3><a href="https://archive.data.is4.site/sparql?default-graph-uri=&amp;query=SELECT+%3Fsource+%3Fproperty+%3Fobject+%28%28COUNT%28DISTINCT+%3Fitem%29%29+AS+%3Fcount%29%0D%0AWHERE+%7B%0D%0A++VALUES+%3Fgraph+%7B%0D%0A++++id%3A65948b27-93be-4ace-9091-f2272525a6cd%0D%0A++++id%3Ab45785a7-e8bf-4428-8996-14caec7eaaed%0D%0A++%7D%0D%0A%0D%0A++GRAPH+%3Fgraph+%7B%0D%0A++++%3Fgraph+nfo%3AfileName+%3Fsource+.%0D%0A++++%3Fitem+%3Fproperty+%3Fobject+.%0D%0A++%7D%0D%0A%7D%0D%0AGROUP+BY+%3Fsource+%3Fproperty+%3Fobject%0D%0AHAVING+%28COUNT%28DISTINCT+%3Fitem%29+%3E+4%29%0D%0AORDER+BY+DESC%28COUNT%28DISTINCT+%3Fitem%29%29+ASC%28%3Fsource%29&amp;format=text%2Fx-html%2Btr&amp;timeout=0&amp;debug=on&amp;run=+Run+Query+">Counting the number of distinct subjects for all predicate-object pairs</a></h3>
-<pre>
-SELECT ?source ?property ?object ((COUNT(DISTINCT ?item)) AS ?count)
+<pre><code class="language-sparql">SELECT ?source ?property ?object ((COUNT(DISTINCT ?item)) AS ?count)
 WHERE {
   VALUES ?graph {
     id:65948b27-93be-4ace-9091-f2272525a6cd
@@ -26,10 +26,9 @@ WHERE {
 GROUP BY ?source ?property ?object
 HAVING (COUNT(DISTINCT ?item) > 4)
 ORDER BY DESC(COUNT(DISTINCT ?item)) ASC(?source)
-</pre>
+</code></pre>
 <h3><a href="https://archive.data.is4.site/sparql?default-graph-uri=&amp;query=SELECT+%3Fsource+%3Fproperty+%28MIN%28%3Fvalue%29+AS+%3Fmin%29+%28AVG%28IF%28isNumeric%28%3Fvalue%29%2C%3Fvalue%2C%22INF%22%5E%5Exsd%3Adouble%29%29+AS+%3Favg%29+%28MAX%28%3Fvalue%29+AS+%3Fmax%29%0D%0AWHERE+%7B%0D%0A++VALUES+%3Fgraph+%7B%0D%0A++++id%3A65948b27-93be-4ace-9091-f2272525a6cd%0D%0A++++id%3Ab45785a7-e8bf-4428-8996-14caec7eaaed%0D%0A++%7D%0D%0A%0D%0A++GRAPH+%3Fgraph+%7B%0D%0A++++%3Fgraph+nfo%3AfileName+%3Fsource+.%0D%0A++++%3Fitem+%3Fproperty+%3Fvalue+.%0D%0A++%7D%0D%0A%7D%0D%0AORDER+BY+%3Fproperty+%3Fsource&amp;format=text%2Fx-html%2Btr&amp;timeout=0&amp;debug=on&amp;run=+Run+Query+">Producing the minimum, maximum value of properties, and average value for numeric objects of properties</a></h3>
-<pre>
-SELECT ?source ?property (MIN(?value) AS ?min) (AVG(IF(isNumeric(?value),?value,"INF"^^xsd:double)) AS ?avg) (MAX(?value) AS ?max)
+<pre><code class="language-sparql">SELECT ?source ?property (MIN(?value) AS ?min) (AVG(IF(isNumeric(?value),?value,"INF"^^xsd:double)) AS ?avg) (MAX(?value) AS ?max)
 WHERE {
   VALUES ?graph {
     id:65948b27-93be-4ace-9091-f2272525a6cd
@@ -42,10 +41,9 @@ WHERE {
   }
 }
 ORDER BY ?property ?source
-</pre>
+</code></pre>
 <h3><a href="https://archive.data.is4.site/sparql?default-graph-uri=&amp;query=SELECT+%3Fsource+%3Fproperty+%28%28COUNT%28DISTINCT+%3Fobject%29%29+AS+%3Fcount%29%0D%0AWHERE+%7B%0D%0A++VALUES+%3Fgraph+%7B%0D%0A++++id%3A65948b27-93be-4ace-9091-f2272525a6cd%0D%0A++++id%3Ab45785a7-e8bf-4428-8996-14caec7eaaed%0D%0A++%7D%0D%0A%0D%0A++GRAPH+%3Fgraph+%7B%0D%0A++++%3Fgraph+nfo%3AfileName+%3Fsource+.%0D%0A++++%5B%5D+%3Fproperty+%3Fobject+.%0D%0A++%7D%0D%0A%7D%0D%0AGROUP+BY+%3Fsource+%3Fproperty%0D%0AORDER+BY+DESC%28COUNT%28DISTINCT+%3Fobject%29%29+ASC%28%3Fsource%29&amp;format=text%2Fx-html%2Btr&amp;timeout=0&amp;debug=on&amp;run=+Run+Query+">Counting the number of distinct objects for each property</a></h3>
-<pre>
-SELECT ?source ?property ((COUNT(DISTINCT ?object)) AS ?count)
+<pre><code class="language-sparql">SELECT ?source ?property ((COUNT(DISTINCT ?object)) AS ?count)
 WHERE {
   VALUES ?graph {
     id:65948b27-93be-4ace-9091-f2272525a6cd
@@ -59,10 +57,9 @@ WHERE {
 }
 GROUP BY ?source ?property
 ORDER BY DESC(COUNT(DISTINCT ?object)) ASC(?source)
-</pre>
+</code></pre>
 <h3><a href="https://archive.data.is4.site/sparql?default-graph-uri=&amp;query=SELECT+%3Fsource+%3Fproperty+%3Fobject%0D%0AWHERE+%7B%0D%0A++VALUES+%28%3Fgraph_a+%3Fgraph_b%29+%7B%0D%0A++++%28id%3A65948b27-93be-4ace-9091-f2272525a6cd+id%3Ab45785a7-e8bf-4428-8996-14caec7eaaed%29%0D%0A++++%28id%3Ab45785a7-e8bf-4428-8996-14caec7eaaed+id%3A65948b27-93be-4ace-9091-f2272525a6cd%29%0D%0A++%7D%0D%0A++GRAPH+%3Fgraph_a+%7B%0D%0A++++%3Fgraph_a+nfo%3AfileName+%3Fsource+.%0D%0A++++VALUES+%3Fproperty+%7B%0D%0A++++++nie%3AinterpretedAs%0D%0A++++++schema%3AencodingFormat%0D%0A++++%7D%0D%0A++++%5B%5D+%3Fproperty+%3Fobject+.%0D%0A++++FILTER+NOT+EXISTS+%7B%0D%0A++++++GRAPH+%3Fgraph_b+%7B%0D%0A++++++++%5B%5D+%3Fproperty+%3Fobject+.%0D%0A++++++%7D%0D%0A++++%7D%0D%0A++%7D%0D%0A%7D%0D%0AORDER+BY+%3Fproperty+%3Fobject&amp;format=text%2Fx-html%2Btr&amp;timeout=0&amp;debug=on&amp;run=+Run+Query+">Listing the objects of properties <code>nie:interpretedAs</code> and <code>schema:encodingFormat</code> that are missing from either graphs</a></h3>
-<pre>
-SELECT ?source ?property ?object
+<pre><code class="language-sparql">SELECT ?source ?property ?object
 WHERE {
   VALUES (?graph_a ?graph_b) {
     (id:65948b27-93be-4ace-9091-f2272525a6cd id:b45785a7-e8bf-4428-8996-14caec7eaaed)
@@ -83,10 +80,9 @@ WHERE {
   }
 }
 ORDER BY ?property ?object
-</pre>
+</code></pre>
 <h3><a href="https://archive.data.is4.site/sparql?default-graph-uri=&amp;query=SELECT+%3Fsource+%3Ffile%0D%0AWHERE+%7B%0D%0A++VALUES+%28%3Fgraph_a+%3Fgraph_b%29+%7B%0D%0A++++%28id%3A65948b27-93be-4ace-9091-f2272525a6cd+id%3Ab45785a7-e8bf-4428-8996-14caec7eaaed%29%0D%0A++%7D%0D%0A++GRAPH+%3Fgraph_a+%7B%0D%0A++++%3Fgraph_a+nfo%3AfileName+%3Fsource+.%0D%0A++++%3Ffile+nie%3AinterpretedAs+%3Fobject+.%0D%0A++++%3Ffile+at%3ApathObject+%3Fpath+.%0D%0A++++%3Fobject+a+cnt%3AContentAsText.%0D%0A++++FILTER+NOT+EXISTS+%7B%0D%0A++++++GRAPH+%3Fgraph_b+%7B%0D%0A++++++++%7B+%5B%5D+nie%3AinterpretedAs+%3Fobject+.+%7D+UNION+%7B+%5B%5D+at%3ApathObject+%3Fpath+.+%7D%0D%0A++++++%7D%0D%0A++++%7D%0D%0A++%7D%0D%0A%7D%0D%0AORDER+BY+%3Ffile&amp;format=text%2Fx-html%2Btr&amp;timeout=0&amp;debug=on&amp;run=+Run+Query+">Listing the files with textual content whose both path and content is missing from the other graph</a></h3>
-<pre>
-SELECT ?source ?file
+<pre><code class="language-sparql">SELECT ?source ?file
 WHERE {
   VALUES (?graph_a ?graph_b) {
     (id:65948b27-93be-4ace-9091-f2272525a6cd id:b45785a7-e8bf-4428-8996-14caec7eaaed)
@@ -104,10 +100,9 @@ WHERE {
   }
 }
 ORDER BY ?file
-</pre>
+</code></pre>
 <h3><a href="https://archive.data.is4.site/sparql?default-graph-uri=&amp;query=SELECT+DISTINCT+%3Fexe+%3Fcreator%0D%0AWHERE+%7B%0D%0A++VALUES+%3Fgraph+%7B%0D%0A++++id%3A65948b27-93be-4ace-9091-f2272525a6cd%0D%0A++++id%3Ab45785a7-e8bf-4428-8996-14caec7eaaed%0D%0A++%7D%0D%0A++GRAPH+%3Fgraph+%7B%0D%0A++++%3Fexe+a+schema%3ASoftwareApplication+.%0D%0A++++FILTER+NOT+EXISTS+%7B%0D%0A++++++VALUES+%3Fmicrosoft+%7B%0D%0A++++++++%22Microsoft+Corporation%22%40en-us%0D%0A++++++++%22Microsoft+Corporation%22%40en-gb%0D%0A++++++++%22Microsoft+Corporation%22%0D%0A++++++%7D%0D%0A++++++%3Fexe+dcterms%3Acreator+%3Fmicrosoft+.%0D%0A++++%7D%0D%0A++++OPTIONAL+%7B%0D%0A++++++%3Fexe+dcterms%3Acreator+%3Fcreator+.%0D%0A++++%7D%0D%0A++%7D%0D%0A%7D&amp;format=text%2Fx-html%2Btr&amp;timeout=0&amp;debug=on&amp;run=+Run+Query+">Identifying applications not made by Microsoft</a></h3>
-<pre>
-SELECT DISTINCT ?exe ?creator
+<pre><code class="language-sparql">SELECT DISTINCT ?exe ?creator
 WHERE {
   VALUES ?graph {
     id:65948b27-93be-4ace-9091-f2272525a6cd
@@ -128,10 +123,9 @@ WHERE {
     }
   }
 }
-</pre>
+</code></pre>
 <h3><a href="https://archive.data.is4.site/sparql?default-graph-uri=&amp;query=SELECT+%3Fsource+%28SUM%28%3Fcount%29+AS+%3Ftotal_count%29+%28SUM%28%3Fsize%29+AS+%3Fsize%29%0D%0AWHERE+%7B%0D%0A++%7B%0D%0A++++SELECT+%3Fsource+%28%28COUNT%28%3Ffile%29-1%29+AS+%3Fcount%29+%28%28SUM%28%3Fsize%29-SAMPLE%28%3Fsize%29%29+AS+%3Fsize%29%0D%0A++++WHERE+%7B%0D%0A++++++VALUES+%3Fgraph+%7B%0D%0A++++++++id%3A65948b27-93be-4ace-9091-f2272525a6cd%0D%0A++++++++id%3Ab45785a7-e8bf-4428-8996-14caec7eaaed%0D%0A++++++%7D%0D%0A%0D%0A++++++GRAPH+%3Fgraph+%7B%0D%0A++++++++%3Fgraph+nfo%3AfileName+%3Fsource+.%0D%0A++++++++%3Ffile+nie%3AinterpretedAs+%3Fcontent+.%0D%0A++++++++%7B+%3Fcontent+a+cnt%3AContentAsText+.+%7D+UNION+%7B+%3Fcontent+a+cnt%3AContentAsBase64+.+%7D%0D%0A++++++++%3Ffile+nfo%3AfileSize+%3Fsize+.%0D%0A++++++%7D%0D%0A++++%7D%0D%0A++++GROUP+BY+%3Fsource+%3Fcontent%0D%0A++++HAVING+%28COUNT%28%3Ffile%29+%3E+1%29%0D%0A++%7D%0D%0A%7D%0D%0AGROUP+BY+%3Fsource&amp;format=text%2Fx-html%2Btr&amp;timeout=0&amp;debug=on&amp;run=+Run+Query+">Counting the total number and size of duplicated files</a></h3>
-<pre>
-SELECT ?source (SUM(?count) AS ?total_count) (SUM(?size) AS ?size)
+<pre><code class="language-sparql">SELECT ?source (SUM(?count) AS ?total_count) (SUM(?size) AS ?size)
 WHERE {
   {
     SELECT ?source ((COUNT(?file)-1) AS ?count) ((SUM(?size)-SAMPLE(?size)) AS ?size)
@@ -153,10 +147,9 @@ WHERE {
   }
 }
 GROUP BY ?source
-</pre>
+</code></pre>
 <h3><a href="https://archive.data.is4.site/sparql?default-graph-uri=&amp;query=SELECT+%3Fsource+%3Fcontent%0D%0AWHERE+%7B%0D%0A++VALUES+%3Fgraph+%7B%0D%0A++++id%3A65948b27-93be-4ace-9091-f2272525a6cd%0D%0A++++id%3Ab45785a7-e8bf-4428-8996-14caec7eaaed%0D%0A++%7D%0D%0A++GRAPH+%3Fgraph+%7B%0D%0A++++%3Fgraph+nfo%3AfileName+%3Fsource+.%0D%0A++++%3Fcontent+dcterms%3AhasFormat+%3Fformat+.%0D%0A++++FILTER+NOT+EXISTS+%7B%0D%0A++++++%23+Ignore+certificates%2C+interpreted+from+executables%0D%0A++++++%3Fformat+a+cert%3AX509Certificate+.%0D%0A++++%7D%0D%0A++%7D%0D%0A%7D%0D%0AGROUP+BY+%3Fsource+%3Fcontent%0D%0AHAVING+%28COUNT%28%3Fformat%29+%3E+1%29%0D%0AORDER+BY+DESC%28COUNT%28%3Fformat%29%29+ASC%28%3Fsource%29&amp;format=text%2Fx-html%2Btr&amp;timeout=0&amp;debug=on&amp;run=+Run+Query+">Retrieving all pieces of content with multiple formats</a></h3>
-<pre>
-SELECT ?source ?content
+<pre><code class="language-sparql">SELECT ?source ?content
 WHERE {
   VALUES ?graph {
     id:65948b27-93be-4ace-9091-f2272525a6cd
@@ -174,7 +167,8 @@ WHERE {
 GROUP BY ?source ?content
 HAVING (COUNT(?format) > 1)
 ORDER BY DESC(COUNT(?format)) ASC(?source)
-</pre>
+</code></pre>
+<script src="app/prism.js"></script>
 </body>
 </head>
 </html>
